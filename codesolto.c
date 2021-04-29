@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include <string.h>
+#include <codesolto.h>
 
 #define largura 800
 #define altura 300
@@ -9,9 +10,11 @@
 #define ppl_height 48
 #define hud_height altura / 7
 
-struct Partida {
+/*struct Partida {
 	int pontuacao;
 	char legenda[50];
+	Font alpha_beta;
+//	alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
 };
 
 struct Jogador {
@@ -47,7 +50,7 @@ struct Porta {
 	int posy;
 	int liberada; // trancada (0) ou aberta (1).
 };
-
+*/
 
 struct Partida game;  // criação da partida
 struct Jogador player;  // criação do player
@@ -146,10 +149,8 @@ void loot_bau(char conteudo, int qnt, int *fechadura) {
 
 // desenha a tela da morte
 void morte() {
-	Font alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
-	
 	DrawRectangle(0, 0, largura, altura, (Color) {0, 0, 0, 210});
-	DrawTextEx(alpha_beta, "Voce morreu!", (Vector2) {largura / 2, altura / 2}, 24, 5, ORANGE);
+	DrawTextEx(game.alpha_beta, "Voce morreu!", (Vector2) {largura / 2, altura / 2}, 24, 5, ORANGE);
 }
 
 
@@ -449,6 +450,7 @@ int main() {
 	// INICIALIZAÇÃO DA PARTIDA
 	game.pontuacao = 0;
 	game.legenda[0] = '\0';
+	game.alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
 	
 	// INICIALIZAÇÃO DO JOGADOR
 	player.posx = 400;
