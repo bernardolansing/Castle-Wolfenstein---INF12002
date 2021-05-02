@@ -41,3 +41,6 @@ struct Porta {
 	int posy;
 	int liberada; // trancada (0) ou aberta (1).
 };
+
+struct Partida game;  // criação da partida
+struct Jogador player;  // criação do player
