@@ -52,8 +52,8 @@ struct Porta {
 };
 */
 
-struct Partida game;  // criação da partida
-struct Jogador player;  // criação do player
+//struct Partida game;  // criação da partida
+//struct Jogador player;  // criação do player
 
 
 // movimenta o jogador pelo cenário
