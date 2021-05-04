@@ -1,5 +1,5 @@
-#ifndef CODESOLTO_H
-#define CODESOLTO_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <raylib.h>
 
@@ -13,6 +13,7 @@
 struct Fonte {
 	Font alpha_beta;
 	Font mecha;
+	Font jupiter_crash;
 };
 
 struct Partida {
