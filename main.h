@@ -1,11 +1,23 @@
+#ifndef CODESOLTO_H
+#define CODESOLTO_H
+
 #include <raylib.h>
+
+#define largura 800
+#define altura 300
+#define ppl_width 20
+#define ppl_height 48
+#define hud_height altura / 7
+
+
+struct Fonte {
+	Font alpha_beta;
+	Font mecha;
+};
 
 struct Partida {
 	int pontuacao;
 	char legenda[50];
-	Font alpha_beta;
-	Font mecha;
-//	alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
 };
 
 struct Jogador {
@@ -34,7 +46,7 @@ struct Bau {
 	int qnt;  // quantidade de itens
 };
 
-struct Bau bau1;  // criaÃ§Ã£o do baÃº
+struct Bau bau1;  // criação do baú
 
 struct Porta {
 	int posx;
@@ -42,5 +54,9 @@ struct Porta {
 	int liberada; // trancada (0) ou aberta (1).
 };
 
-struct Partida game;  // criaÃ§Ã£o da partida
-struct Jogador player;  // criaÃ§Ã£o do player
+struct Partida game;  // criação da partida
+struct Jogador player;  // criação do player
+struct Porta porta;
+struct Fonte fonte;
+
+#endif

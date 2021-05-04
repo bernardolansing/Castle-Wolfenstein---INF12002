@@ -1,16 +1,20 @@
 #include <raylib.h>
 #include <string.h>
-#include <main.h>
+#include "main.h"
+#include "motion.c"
+#include "draw.c"
+#include "collision.c"
+
 
 int main() {
 	// int pontuacao = 0, *p_pontos = &pontuacao;
-	
-	// INICIALIZA√á√ÉO DA PARTIDA
+
+	// INICIALIZA«√O DA PARTIDA
 	game.pontuacao = 0;
 	game.legenda[0] = '\0';
-	game.alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
-	
-	// INICIALIZA√á√ÉO DO JOGADOR
+	fonte.alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
+
+	// INICIALIZA«√O DO JOGADOR
 	player.posx = 400;
 	player.posy = 150;
 	player.vidas = 3;
@@ -18,18 +22,23 @@ int main() {
 	player.facas = 2;
 	player.direcao = 'E';
 
-	// INICIALIZA√á√ÉO DE UM BA√ö
+	// INICIALIZA«√O DE UM BA⁄
 	bau1.estado = 0;
 	bau1.posx = 100;
 	bau1.posy = 75;
 	bau1.conteudo = 'M';
 	bau1.qnt = 2;
 
-	// INICIALIZA√á√ÉO DE UM INIMIGO
+	// INICIALIZA«√O DE UM INIMIGO
 	inimigo1.posx = 700;
 	inimigo1.posy = 70;
 	inimigo1.vivo = 1;
 	inimigo1.direcao = 'E';
+
+	// INICIALIZA«√O DA PORTA
+	porta.liberada = 0;
+	porta.posx = 700;
+	porta.posy = 210;
 
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
@@ -44,7 +53,7 @@ int main() {
 		}
 
 		draw();
-		
+
 		if (checar_colisao(inimigo1)) {
 			double hora_morte = GetTime();
 
@@ -54,3 +63,4 @@ int main() {
 
 
 	return 0;
+}
