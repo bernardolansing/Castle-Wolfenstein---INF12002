@@ -1,6 +1,6 @@
 #include <raylib.h>
 #include <string.h>
-#include "main.h"
+#include <main.h>
 
 // desenha a tela da morte
 void morte() {
@@ -9,22 +9,23 @@ void morte() {
 }
 
 
-// determina qual È o passo (1, 2, 3 ou 4) que o personagem est· dando
+// determina qual √© o passo (1, 2, 3 ou 4) que o personagem est√° dando
 int selec_passo(int posicao) {
 	posicao %= 240;
 
 	if (posicao < 61) return 0;
 	if (posicao < 121) return 1;
 	if (posicao < 181) return 2;
+
 	return 3;
 }
 
-// seleciona a imagem correta do jogador, de acordo com direÁ„o e passo, e a imprime
+// seleciona a imagem correta do jogador, de acordo com dire√ß√£o e passo, e a imprime
 void draw_jogador() {
 	int passo;
 	Texture2D imgplayer;
 
-	// carrega a imagem sob nome "player"
+	// carrega a imagem sob nome "imgplayer"
 	switch (player.direcao) {
 
 		case 'C':
@@ -125,6 +126,7 @@ void draw_jogador() {
 	DrawTexture(imgplayer, player.posx, player.posy, RAYWHITE);
 }
 
+// carrega a imagem do inimigo e a imprime
 void draw_inimigo(struct Inimigo inimigo) {
 	int passo;
 	Texture2D imginimigo;
@@ -237,7 +239,7 @@ void draw_porta() {
 	DrawTexture(imgporta, porta.posx, porta.posy, WHITE);
 }
 
-// imprime um ba˙ na tela
+// imprime um ba√∫ na tela
 void draw_bau(struct Bau bau) {
 	Texture2D imgbau;
 
@@ -257,7 +259,7 @@ void draw_hud() {
 
 	DrawRectangle(hud.x, hud.y, hud.width, hud.height, (Color) {0, 0, 0, 200});
 
-	// Impress„o da muniÁ„o ---------------------
+	// Impress√£o da muni√ß√£o ---------------------
 	Vector2 posicao_municao = {30, altura - (hud.height / 2) - 10};
 	Texture2D ammo = LoadTexture("resources/hud/bullet.png");
 	DrawTextEx(mecha, "Municao:", posicao_municao, 16, 5, YELLOW);
@@ -266,7 +268,7 @@ void draw_hud() {
 		DrawTexture(ammo, 100 + 10 * i, altura - (hud.height / 2) - 13, WHITE);
 	}
 
-	// Impress„o das facas ----------------------
+	// Impress√£o das facas ----------------------
 	Vector2 posicao_facas = {120 + 10 * player.municao, posicao_municao.y};
 	Texture2D faca = LoadTexture("resources/hud/knife.png");
 	DrawTextEx(mecha, "Facas:", posicao_facas, 16, 5, YELLOW);
@@ -275,7 +277,7 @@ void draw_hud() {
 		DrawTexture(faca, posicao_facas.x + 44 + 10 * i, altura - (hud.height / 2) - 19, WHITE);
 	}
 
-	// Impress„o das vidas ----------------------
+	// Impress√£o das vidas ----------------------
 	Vector2 posicao_vidas = {posicao_facas.x + 72 + 10 * player.facas, posicao_facas.y};
 	Texture2D coracao = LoadTexture("resources/hud/heart.png");
 	DrawTextEx(mecha, "Vidas:", posicao_vidas, 16, 5, YELLOW);
@@ -284,17 +286,18 @@ void draw_hud() {
 		DrawTexture(coracao, posicao_vidas.x + 54 + 30 * i, altura - (hud.height / 2) - 12, WHITE);
 	}
 
-	// Impress„o da legenda ---------------------
+	// Impress√£o da legenda ---------------------
 	Vector2 posicao_legenda = {420, posicao_municao.y};
 	DrawTextEx(mecha, game.legenda, posicao_legenda, 16, 5, RAYWHITE);
 
-	// Impress„o da pontuaÁ„o -------------------
+	// Impress√£o da pontua√ß√£o -------------------
 	Vector2 posicao_pontuacao = {20, 10};
 	//TextFormat("Pontuacao: %i", game.pontuacao);
 	DrawTextEx(mecha, TextFormat("Pontuacao: %i", game.pontuacao), posicao_pontuacao, 16, 5, RAYWHITE);
 }
 
 void draw() {
+	int i;
 
 	BeginDrawing();
 
@@ -303,7 +306,7 @@ void draw() {
 	draw_hud();
 	draw_bau(bau1);
 	draw_jogador();
-	draw_inimigo(inimigo1);
+	for (i = 0; i < qnt_inimigos; i++) draw_inimigo(inimigos[i]);
 	draw_porta();
 
 	EndDrawing();

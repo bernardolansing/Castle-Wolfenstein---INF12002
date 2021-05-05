@@ -1,6 +1,6 @@
-#include <raylib.h>
+#include <main.h>
 #include <string.h>
-#include "main.h"
+
 
 // verifica se o inimigo colidiu com o jogador
 bool checar_colisao(struct Inimigo inimigo) {
@@ -10,9 +10,9 @@ bool checar_colisao(struct Inimigo inimigo) {
 	return (CheckCollisionRecs(box_jogador, box_inimigo));
 }
 
-// responde se há um baú fechado por perto
+// responde se hï¿½ um baï¿½ fechado por perto
 bool bau_perto(struct Bau bau) {
-	if (bau.estado) return false;  // retorna false caso o baú já tenha sido aberto
+	if (bau.estado) return false;  // retorna false caso o baï¿½ jï¿½ tenha sido aberto
 
 	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
 	Rectangle box_bau = {bau.posx, bau.posy, 65, 65};
@@ -20,9 +20,9 @@ bool bau_perto(struct Bau bau) {
 	return (CheckCollisionRecs(box_jogador, box_bau));
 }
 
-// marca o baú como fechado e dá ao jogador seus espólios
+// marca o baï¿½ como fechado e dï¿½ ao jogador seus espï¿½lios
 void loot_bau(char conteudo, int qnt, int *fechadura) {
-	*fechadura = 1;  // define o baú como aberto (bau.estado = 1)
+	*fechadura = 1;  // define o baï¿½ como aberto (bau.estado = 1)
 
 	switch (conteudo) {
 		case 'M':
@@ -43,7 +43,46 @@ void loot_bau(char conteudo, int qnt, int *fechadura) {
 		break;
 	}
 
-	// dá 50 pontos por ter aberto o baú
+	// dï¿½ 50 pontos por ter aberto o baï¿½
 	game.pontuacao += 50;
+}
+
+Rectangle disparobox() {
+	Rectangle box_bullet;
+
+	switch (player.direcao) {
+		case 'C': box_bullet.x = player.posx; box_bullet.y = player.posy / 2;
+		box_bullet.width = 1; box_bullet.height = player.posy;
+		break;
+
+		case 'B': box_bullet.x = player.posx; box_bullet.y = (player.posy + altura) / 2;
+		box_bullet.width = 1; box_bullet.height = altura - player.posy;
+		break;
+
+		case 'D': box_bullet.x = (largura + player.posx) / 2; box_bullet.y = player.posy - 24;
+		box_bullet.width = largura - player.posx; box_bullet.height = 1;
+		break;
+
+		case 'E': box_bullet.x = (largura - player.posx) / 2; box_bullet.y = player.posy;
+		box_bullet.width = largura - player.posx; box_bullet.height = 1;
+		break;
+	}
+
+	DrawRectangle(box_bullet.x, box_bullet.y, box_bullet.width, box_bullet.height, GREEN);
+	
+	return box_bullet;
+}
+
+void tiro() {
+	int i;
+	// Rectangle box_inimigo;
+
+	if (IsKeyPressed(KEY_SPACE)) {
+		
+		for (i = 0; i < qnt_inimigos; i++) {
+			Rectangle box_inimigo = {inimigos[i].posx, inimigos[i].posy, ppl_width, ppl_height};
+			if (CheckCollisionRecs(disparobox(), box_inimigo)) inimigos[i].vivo = 0;
+		}
+	}
 }
 

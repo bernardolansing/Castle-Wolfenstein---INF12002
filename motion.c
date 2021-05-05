@@ -1,8 +1,8 @@
 #include <raylib.h>
 #include <string.h>
-#include "main.h"
+#include <main.h>
 
-// movimenta o jogador pelo cenário
+// movimenta o jogador pelo cenï¿½rio
 void mover_jogador() {
 
 	if (IsKeyDown(KEY_UP)) {
