@@ -51,33 +51,30 @@ Rectangle disparobox() {
 	Rectangle box_bullet;
 
 	switch (player.direcao) {
-		case 'C': box_bullet.x = player.posx; box_bullet.y = player.posy / 2;
+		case 'C': box_bullet.x = player.posx + 17; box_bullet.y = 0;
 		box_bullet.width = 1; box_bullet.height = player.posy;
 		break;
 
-		case 'B': box_bullet.x = player.posx; box_bullet.y = (player.posy + altura) / 2;
+		case 'B': box_bullet.x = player.posx + 17; box_bullet.y = player.posy;
 		box_bullet.width = 1; box_bullet.height = altura - player.posy;
 		break;
 
-		case 'D': box_bullet.x = (largura + player.posx) / 2; box_bullet.y = player.posy - 24;
-		box_bullet.width = largura - player.posx; box_bullet.height = 1;
+		case 'D': box_bullet.x = player.posx + 11; box_bullet.y = player.posy + 24;
+		box_bullet.width = largura; box_bullet.height = 1;
 		break;
 
-		case 'E': box_bullet.x = (largura - player.posx) / 2; box_bullet.y = player.posy;
-		box_bullet.width = largura - player.posx; box_bullet.height = 1;
+		case 'E': box_bullet.x = 0; box_bullet.y = player.posy + 24;
+		box_bullet.width = player.posx + 17; box_bullet.height = 1;
 		break;
 	}
-
-	DrawRectangle(box_bullet.x, box_bullet.y, box_bullet.width, box_bullet.height, GREEN);
 	
 	return box_bullet;
 }
 
 void tiro() {
 	int i;
-	// Rectangle box_inimigo;
 
-	if (IsKeyPressed(KEY_SPACE)) {
+	if (IsKeyDown(KEY_SPACE)) {
 		
 		for (i = 0; i < qnt_inimigos; i++) {
 			Rectangle box_inimigo = {inimigos[i].posx, inimigos[i].posy, ppl_width, ppl_height};
