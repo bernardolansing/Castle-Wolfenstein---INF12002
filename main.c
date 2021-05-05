@@ -33,7 +33,7 @@ int main() {
 	// INICIALIZAÇÃO DE UM INIMIGO
 	inimigos[0].posx = 700;
 	inimigos[0].posy = 70;
-	inimigos[0].vivo = 0;
+	inimigos[0].vivo = 1;
 	inimigos[0].direcao = 'E';
 
 	// INICIALIZAÇÃO DA PORTA

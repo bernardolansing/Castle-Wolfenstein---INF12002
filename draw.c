@@ -25,8 +25,17 @@ void draw_jogador() {
 	int passo;
 	Texture2D imgplayer;
 
+	if (GetTime() - player.horadisparo < 0.5) {
+		switch (player.direcao) {
+			case 'C': imgplayer = LoadTexture("resources/player/player-up-shoot.png"); break;
+			case 'B': imgplayer = LoadTexture("resources/player/player-down-shoot.png"); break;
+			case 'D': imgplayer = LoadTexture("resources/player/player-right-shoot.png"); break;
+			case 'E': imgplayer = LoadTexture("resources/player/player-left-shoot.png"); break;
+		}
+	}
+	
 	// carrega a imagem sob nome "imgplayer"
-	switch (player.direcao) {
+	else switch (player.direcao) {
 
 		case 'C':
 		passo = selec_passo(player.posy);
@@ -128,6 +137,8 @@ void draw_jogador() {
 
 // carrega a imagem do inimigo e a imprime
 void draw_inimigo(struct Inimigo inimigo) {
+	if (!inimigo.vivo) return;
+	
 	int passo;
 	Texture2D imginimigo;
 
@@ -229,6 +240,19 @@ void draw_inimigo(struct Inimigo inimigo) {
 	DrawTexture(imginimigo, inimigo.posx, inimigo.posy, WHITE);
 }
 
+// imprime o inimigo morto
+void draw_inimigo_morto(struct Inimigo inimigo) {
+	Texture2D imginimigo;
+	
+	if (GetTime() - inimigo.horamorte < 0.3) imginimigo = LoadTexture("resources/enemy/dying-1.png");
+	else if (GetTime() - inimigo.horamorte < 0.6) imginimigo = LoadTexture("resources/enemy/dying-2.png");
+	else if (GetTime() - inimigo.horamorte < 0.9) imginimigo = LoadTexture("resources/enemy/dying-3.png");
+	else if (GetTime() - inimigo.horamorte < 1.2) imginimigo = LoadTexture("resources/enemy/dying-4.png");
+	else imginimigo = LoadTexture("resources/enemy/dying-5.png");
+
+	DrawTexture(imginimigo, inimigo.posx, inimigo.posy, LIGHTGRAY);
+}
+
 // imprime a porta
 void draw_porta() {
 	Texture2D imgporta;
@@ -306,8 +330,14 @@ void draw() {
 	draw_hud();
 	draw_bau(bau1);
 	draw_jogador();
-	for (i = 0; i < qnt_inimigos; i++) draw_inimigo(inimigos[i]);
+
+	for (i = 0; i < qnt_inimigos; i++) 
+		if (inimigos[i].vivo)
+			draw_inimigo(inimigos[i]);
+		else draw_inimigo_morto(inimigos[i]);
+	
 	draw_porta();
 
 	EndDrawing();
 }
+

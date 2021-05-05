@@ -21,6 +21,7 @@ struct Fonte {
 struct Partida {
 	int pontuacao;
 	char legenda[50];
+	double horalegenda;
 };
 
 struct Jogador {
@@ -30,6 +31,7 @@ struct Jogador {
 	int municao;
 	int facas;
 	char direcao;
+	double horadisparo;
 };
 
 struct Inimigo {
@@ -37,6 +39,7 @@ struct Inimigo {
 	int posy;
 	int vivo; // vivo (1) ou morto (0).
 	char direcao;
+	double horamorte;
 };
 
 struct Bau {

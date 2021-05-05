@@ -71,15 +71,27 @@ Rectangle disparobox() {
 	return box_bullet;
 }
 
+void matar_inimigo(struct Inimigo *inimigo) {
+	inimigo->vivo = 0;
+	inimigo->horamorte = GetTime();
+	strcpy(game.legenda, "Voce abateu um inimigo!");
+	game.horalegenda = GetTime();
+}
+
 void tiro() {
 	int i;
 
-	if (IsKeyDown(KEY_SPACE)) {
+	if (IsKeyPressed(KEY_SPACE) && player.municao) {
 		
 		for (i = 0; i < qnt_inimigos; i++) {
 			Rectangle box_inimigo = {inimigos[i].posx, inimigos[i].posy, ppl_width, ppl_height};
-			if (CheckCollisionRecs(disparobox(), box_inimigo)) inimigos[i].vivo = 0;
+			if (CheckCollisionRecs(disparobox(), box_inimigo)) matar_inimigo(&inimigos[i]);
 		}
+
+		player.horadisparo = GetTime();
+		player.municao--;
 	}
 }
+
+
 
