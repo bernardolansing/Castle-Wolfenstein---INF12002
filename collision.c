@@ -5,9 +5,8 @@
 // verifica se o inimigo colidiu com o jogador
 bool checar_colisao(struct Inimigo inimigo) {
 	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
-	Rectangle box_inimigo = {inimigo.posx, inimigo.posy, ppl_width, ppl_height};
 
-	return (CheckCollisionRecs(box_jogador, box_inimigo));
+	return (CheckCollisionRecs(box_jogador, inimigo.hitbox));
 }
 
 // responde se h� um ba� fechado por perto
@@ -93,5 +92,43 @@ void tiro() {
 	}
 }
 
+int hitfaca(struct Faca faca) {
+	int i;
 
+	// testar se a faca acerta algum inimigo
+	for (i = 0; i < qnt_inimigos; i++) {
+		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox)) {
+			matar_inimigo(&inimigos[i]);
+			return 1;
+		}
+	}
+
+	// testar se a faca acerta alguma parede
+	if (faca.posx < 1 || faca.posx > largura - 1) return 1;
+	if (faca.posy < 1 || faca.posy > altura - 1) return 1;
+
+	return 0;
+}
+
+void arremesso(struct Faca *faca, int *seletor) {
+	if (!faca->ar) {
+		*seletor++;
+		faca->posx = player.posx;
+		faca->posy = player.posy;
+		faca->hitbox.x = player.posx;
+		faca->hitbox.y = player.posy;
+	}
+
+	faca->ar = 1;
+	faca->posx += 3;
+	faca->posy += 3;
+	faca->hitbox.x += 3;
+	faca->hitbox.y += 3;
+
+	if (hitfaca(*faca)) {
+		faca->ar = 0;
+		faca->drop.x = faca->posx;
+		faca->drop.y = faca->posy;
+	}
+}
 

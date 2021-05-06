@@ -28,22 +28,26 @@ void mover_jogador() {
 }
 
 // movimenta o inimigo, perseguindo o jogador
-void mover_inimigo(int *posx, int *posy, char *direcao) {
-	if (player.posy > *posy) {
-		*posy += 1;
-		*direcao = 'C';
+void mover_inimigo(struct Inimigo *inimigo) {
+	if (player.posy > inimigo->posy) {
+		inimigo->posy += 1;
+		inimigo->direcao = 'C';
 	}
-	else if (player.posy < *posy) {
-		*posy -= 1;
-		*direcao = 'B';
+	else if (player.posy < inimigo->posy) {
+		inimigo->posy -= 1;
+		inimigo->direcao = 'B';
 	}
 
-	if (player.posx > *posx) {
-		*posx += 1;
-		*direcao = 'D';
+	if (player.posx > inimigo->posx) {
+		inimigo->posx += 1;
+		inimigo->direcao = 'D';
 	}
-	else if (player.posx < *posx) {
-		*posx -= 1;
-		*direcao = 'E';
+	else if (player.posx < inimigo->posx) {
+		inimigo->posx -= 1;
+		inimigo->direcao = 'E';
 	}
+
+	// atualiza a posição da hitbox
+	inimigo->hitbox.x = inimigo->posx;
+	inimigo->hitbox.y = inimigo->posy;
 }

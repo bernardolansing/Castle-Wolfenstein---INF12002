@@ -10,6 +10,7 @@
 #define hud_height altura / 7
 
 #define qnt_inimigos 1
+#define qnt_facas 2  // contado com facas dentro de baús
 
 
 struct Fonte {
@@ -34,12 +35,21 @@ struct Jogador {
 	double horadisparo;
 };
 
+struct Faca {
+	int ar;  // em trajetória (1) ou guardada/caída (0).
+	int posx;
+	int posy;
+	Vector2 drop;
+	Rectangle hitbox;
+};
+
 struct Inimigo {
 	int posx;
 	int posy;
 	int vivo; // vivo (1) ou morto (0).
 	char direcao;
 	double horamorte;
+	Rectangle hitbox;
 };
 
 struct Bau {
@@ -62,5 +72,6 @@ struct Inimigo inimigos[qnt_inimigos];
 struct Porta porta;
 struct Fonte fonte;
 struct Bau bau1;  // criação do baú
+struct Faca facas[qnt_facas];
 
 #endif

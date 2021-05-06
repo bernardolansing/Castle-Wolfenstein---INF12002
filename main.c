@@ -35,12 +35,20 @@ int main() {
 	inimigos[0].posy = 70;
 	inimigos[0].vivo = 1;
 	inimigos[0].direcao = 'E';
+	inimigos[0].hitbox.width = ppl_width;
+	inimigos[0].hitbox.height = ppl_height;
 
 	// INICIALIZAÇÃO DA PORTA
 	porta.liberada = 0;
 	porta.posx = 700;
 	porta.posy = 210;
 
+	// INICIALIZAÇÃO DAS FACAS
+	for (i = 0; i < player.facas; i++) {
+		facas[i].ar = 0;
+		facas[i].hitbox.width = 57;
+		facas[i].hitbox.height = 15;
+	}
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
 	SetTargetFPS(60);
@@ -49,13 +57,23 @@ int main() {
 		mover_jogador();
 		for (i = 0; i < qnt_inimigos; i++) 
 			if (inimigos[i].vivo)
-				mover_inimigo(&inimigos[i].posx, &inimigos[i].posy, &inimigos[i].direcao);
+				mover_inimigo(&inimigos[i]);
 
 		if (bau_perto(bau1) && IsKeyPressed(KEY_E)) {
 			loot_bau(bau1.conteudo, bau1.qnt, &bau1.estado);
 		}
 
 		tiro();
+		
+		int seletor_facas = 0, *pont_seletor_facas = &seletor_facas;
+
+		for (i = 0; i < player.facas; i++) 
+			if (facas[i].ar) arremesso(&facas[i], pont_seletor_facas);
+		
+		if (IsKeyPressed(KEY_X) && player.facas) {
+			arremesso(&facas[seletor_facas], pont_seletor_facas);
+			player.facas--;
+		}
 
 		draw();
 
