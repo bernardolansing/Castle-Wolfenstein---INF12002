@@ -3,6 +3,7 @@
 #include <motion.c>
 #include <draw.c>
 #include <collision.c>
+#include <string.h>
 
 
 int main() {
@@ -56,6 +57,9 @@ int main() {
 	SetTargetFPS(60);
 
 	while (!WindowShouldClose()) {
+
+		// reset da legenda
+		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
 		
 		mover_jogador();
 		for (i = 0; i < qnt_inimigos; i++) 

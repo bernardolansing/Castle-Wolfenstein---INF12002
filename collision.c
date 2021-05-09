@@ -41,9 +41,6 @@ void loot_bau(char conteudo, int qnt, int *fechadura) {
 		strcpy(game.legenda, "Voce abriu o bau e ganhou pontos extras!");
 		break;
 	}
-
-	// dá 50 pontos por ter aberto o baú
-	game.pontuacao += 50;
 }
 
 void loot_faca() {	
@@ -65,6 +62,7 @@ void loot_faca() {
 				facas[i].posy = altura * 2;
 				player.facas++;
 				strcpy(game.legenda, "Voce apanhou uma faca!");
+				game.horalegenda = GetTime();
 			}
 		}
 	}
@@ -99,6 +97,7 @@ void matar_inimigo(struct Inimigo *inimigo) {
 	inimigo->horamorte = GetTime();
 	strcpy(game.legenda, "Voce abateu um inimigo!");
 	game.horalegenda = GetTime();
+	game.pontuacao += 10;
 }
 
 void tiro() {
