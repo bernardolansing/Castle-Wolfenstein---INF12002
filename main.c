@@ -6,7 +6,7 @@
 
 
 int main() {
-	int i;
+	int i, seletor_facas = 0;
 
 	// INICIALIZAÇÃO DA PARTIDA E DAS FONTES
 	game.pontuacao = 0;
@@ -46,14 +46,17 @@ int main() {
 	// INICIALIZAÇÃO DAS FACAS
 	for (i = 0; i < player.facas; i++) {
 		facas[i].ar = 0;
-		facas[i].hitbox.width = 57;
-		facas[i].hitbox.height = 15;
+		facas[i].hitbox.width = 29;
+		facas[i].hitbox.height = 10;
+		facas[i].posx = largura * 2;
+		facas[i].posy = altura * 2;
 	}
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
 	SetTargetFPS(60);
 
 	while (!WindowShouldClose()) {
+		
 		mover_jogador();
 		for (i = 0; i < qnt_inimigos; i++) 
 			if (inimigos[i].vivo)
@@ -65,18 +68,22 @@ int main() {
 
 		tiro();
 		
-		int seletor_facas = 0, *pont_seletor_facas = &seletor_facas;
-
-		for (i = 0; i < player.facas; i++) 
-			if (facas[i].ar) arremesso(&facas[i], pont_seletor_facas);
+		// SEÇÃO DAS FACAS ----------------------
+		for (i = 0; i < qnt_facas; i++)
+			if (facas[i].ar) arremesso(&facas[i]);
 		
 		if (IsKeyPressed(KEY_X) && player.facas) {
-			arremesso(&facas[seletor_facas], pont_seletor_facas);
+			arremesso(&facas[seletor_facas]);
 			player.facas--;
+			seletor_facas++;
 		}
+
+		loot_faca();
+		// --------------------------------------
 
 		draw();
 
+		/*
 		for (i = 0; i < qnt_inimigos; i++) {
 			if (checar_colisao(inimigos[i])) {
 				double hora_morte = GetTime();
@@ -84,6 +91,7 @@ int main() {
 				while (GetTime() <= hora_morte + 3 && !WindowShouldClose()) morte();
 			}
 		}
+		*/
 	}
 
 

@@ -36,6 +36,7 @@ struct Jogador {
 };
 
 struct Faca {
+	char direcao;
 	int ar;  // em trajetória (1) ou guardada/caída (0).
 	int posx;
 	int posy;

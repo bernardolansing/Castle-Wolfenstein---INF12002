@@ -33,7 +33,7 @@ void draw_jogador() {
 			case 'E': imgplayer = LoadTexture("resources/player/player-left-shoot.png"); break;
 		}
 	}
-	
+
 	// carrega a imagem sob nome "imgplayer"
 	else switch (player.direcao) {
 
@@ -237,7 +237,7 @@ void draw_inimigo(struct Inimigo inimigo) {
 		break;
 	}
 
-	DrawTexture(imginimigo, inimigo.posx, inimigo.posy, WHITE);
+	DrawTexture(imginimigo, inimigo.posx - 10, inimigo.posy - 15, WHITE);
 }
 
 // imprime o inimigo morto
@@ -316,8 +316,26 @@ void draw_hud() {
 
 	// Impressão da pontuação -------------------
 	Vector2 posicao_pontuacao = {20, 10};
-	//TextFormat("Pontuacao: %i", game.pontuacao);
 	DrawTextEx(mecha, TextFormat("Pontuacao: %i", game.pontuacao), posicao_pontuacao, 16, 5, RAYWHITE);
+}
+
+void draw_faca(struct Faca faca) {
+	int rotacao;
+	Color cor;
+	Texture2D imgfaca = LoadTexture("resources/scenario/knife.png");
+	Vector2 posicao = {faca.posx, faca.posy};
+	
+	switch (faca.direcao) {
+		case 'C': rotacao = -90; break;
+		case 'B': rotacao = 90; break;
+		case 'D': rotacao = 0; break;
+		case 'E': rotacao = 180; break;
+	}
+
+	if (faca.ar) cor = WHITE;
+	else {cor = DARKGRAY; rotacao += 45;}
+
+	DrawTextureEx(imgfaca, posicao, rotacao, 0.5, cor);
 }
 
 void draw() {
@@ -330,6 +348,8 @@ void draw() {
 	draw_hud();
 	draw_bau(bau1);
 	draw_jogador();
+
+	for (i = 0; i < qnt_facas; i++) draw_faca(facas[i]);
 
 	for (i = 0; i < qnt_inimigos; i++) 
 		if (inimigos[i].vivo)

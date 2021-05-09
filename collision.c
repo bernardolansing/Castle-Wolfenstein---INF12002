@@ -19,7 +19,7 @@ bool bau_perto(struct Bau bau) {
 	return (CheckCollisionRecs(box_jogador, box_bau));
 }
 
-// marca o ba� como fechado e d� ao jogador seus esp�lios
+// marca o baú como fechado e dá ao jogador seus espólios
 void loot_bau(char conteudo, int qnt, int *fechadura) {
 	*fechadura = 1;  // define o ba� como aberto (bau.estado = 1)
 
@@ -42,8 +42,32 @@ void loot_bau(char conteudo, int qnt, int *fechadura) {
 		break;
 	}
 
-	// d� 50 pontos por ter aberto o ba�
+	// dá 50 pontos por ter aberto o baú
 	game.pontuacao += 50;
+}
+
+void loot_faca() {	
+	int i;
+	Rectangle box_faca;
+	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
+	box_faca.width = 35;
+	box_faca.height = 30;
+
+	for (i = 0; i < qnt_facas; i++) {
+		if (!facas[i].ar) {
+			box_faca.x = facas[i].posx - 17;
+			box_faca.y = facas[i].posy;
+			//DrawRectangleLines(box_faca.x, box_faca.y, box_faca.width, box_faca.height, BLUE);
+			//DrawRectangleLines(box_jogador.x, box_jogador.y, box_jogador.width, box_jogador.height, BLUE);
+
+			if (CheckCollisionRecs(box_jogador, box_faca)) {
+				facas[i].posx = largura * 2;
+				facas[i].posy = altura * 2;
+				player.facas++;
+				strcpy(game.legenda, "Voce apanhou uma faca!");
+			}
+		}
+	}
 }
 
 Rectangle disparobox() {
@@ -84,7 +108,8 @@ void tiro() {
 		
 		for (i = 0; i < qnt_inimigos; i++) {
 			Rectangle box_inimigo = {inimigos[i].posx, inimigos[i].posy, ppl_width, ppl_height};
-			if (CheckCollisionRecs(disparobox(), box_inimigo)) matar_inimigo(&inimigos[i]);
+			if (CheckCollisionRecs(disparobox(), box_inimigo) && inimigos[i].vivo)
+				matar_inimigo(&inimigos[i]);
 		}
 
 		player.horadisparo = GetTime();
@@ -104,27 +129,33 @@ int hitfaca(struct Faca faca) {
 	}
 
 	// testar se a faca acerta alguma parede
-	if (faca.posx < 1 || faca.posx > largura - 1) return 1;
-	if (faca.posy < 1 || faca.posy > altura - 1) return 1;
+	if (faca.posx < 15 || faca.posx > largura - 15) return 1;
+	if (faca.posy < 15 || faca.posy > altura - 15 - hud_height) return 1;
 
 	return 0;
 }
 
-void arremesso(struct Faca *faca, int *seletor) {
+void arremesso(struct Faca *faca) {
+	// caso a faca esteja guardada, será arremessada agora
 	if (!faca->ar) {
-		*seletor++;
 		faca->posx = player.posx;
 		faca->posy = player.posy;
 		faca->hitbox.x = player.posx;
 		faca->hitbox.y = player.posy;
+		faca->direcao = player.direcao;
 	}
 
+	// tendo sido arremessada, percorrerá o cenário de acordo com a direção	
 	faca->ar = 1;
-	faca->posx += 3;
-	faca->posy += 3;
-	faca->hitbox.x += 3;
-	faca->hitbox.y += 3;
 
+	switch (faca->direcao) {
+		case 'C': faca->posy -= 3; faca->hitbox.y -= 3; break;
+		case 'B': faca->posy += 3; faca->hitbox.y += 3; break;
+		case 'D': faca->posx += 3; faca->hitbox.x += 3; break;
+		case 'E': faca->posx -= 3; faca->hitbox.x -= 3; break;
+	}
+
+	// checa a colisão da faca
 	if (hitfaca(*faca)) {
 		faca->ar = 0;
 		faca->drop.x = faca->posx;
