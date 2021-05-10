@@ -3,13 +3,39 @@
 
 #include <main.h>
 #include <string.h>
+#include <draw.c>
 
 
 // verifica se o inimigo colidiu com o jogador
-bool checar_colisao(struct Inimigo inimigo) {
+bool checar_contato_inimigo(struct Inimigo inimigo) {
 	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
 
 	return (CheckCollisionRecs(box_jogador, inimigo.hitbox));
+}
+
+void matar_jogador(int ini_index, double horamorte) {
+	Vector2 posicao_texto = {largura / 2 - 20, altura / 2 - 10};
+	player.vidas--;
+
+	while (GetTime() - horamorte < 3) {
+		BeginDrawing();
+		
+		ClearBackground(BLACK);
+		draw_jogador();
+		draw_inimigo(inimigos[ini_index]);
+		DrawText("Voce morreu!", largura / 2 - 20, altura / 2 - 10, 16, YELLOW);
+		//DrawTextEx(fonte.alpha_beta, "Voce morreu", posicao_texto, 16.0, 5.0, YELLOW);
+
+		EndDrawing();
+
+		  // garante que o jogo não fique travado quando o jogador morrer
+		if (WindowShouldClose()) CloseWindow();
+	}
+
+	// resetar a posicao do jogador e dos inimigos
+	// esta seção terá de ser refeita mais tarde
+	player.posx = 400; player.posy = 150;
+	inimigos[0].posx = 700; inimigos[0].posy = 70;
 }
 
 // responde se há um baú fechado por perto

@@ -1,3 +1,6 @@
+#ifndef DRAW_C
+#define DRAW_C
+
 #include <raylib.h>
 #include <string.h>
 #include <main.h>
@@ -361,3 +364,4 @@ void draw() {
 	EndDrawing();
 }
 
+#endif

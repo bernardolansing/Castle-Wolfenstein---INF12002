@@ -64,9 +64,15 @@ void mover(int *seletor_facas) {
 			mover_inimigo(&inimigos[i]);
 	// --------------------------------------------------------------
 
-	if (bau_perto(bau1) && IsKeyPressed(KEY_E)) {
-		loot_bau(bau1.conteudo, bau1.qnt, &bau1.estado);
+	// checar morte do jogador
+	for (i = 0; i < qnt_inimigos; i++) {
+		if (inimigos[i].vivo && checar_contato_inimigo(inimigos[i]))
+			matar_jogador(i, GetTime());
 	}
+	
+	// loot do baú
+	if (bau_perto(bau1) && IsKeyPressed(KEY_E))
+		loot_bau(bau1.conteudo, bau1.qnt, &bau1.estado);
 
 	tiro();
 	

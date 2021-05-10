@@ -71,16 +71,6 @@ int main() {
 		if (!pause) mover(&seletor_facas);
 
 		draw();
-
-		/*
-		for (i = 0; i < qnt_inimigos; i++) {
-			if (checar_colisao(inimigos[i])) {
-				double hora_morte = GetTime();
-
-				while (GetTime() <= hora_morte + 3 && !WindowShouldClose()) morte();
-			}
-		}
-		*/
 	}
 
 
