@@ -8,6 +8,7 @@
 
 int main() {
 	int i, seletor_facas = 0;
+	bool pause = false;
 
 	// INICIALIZAÇÃO DA PARTIDA E DAS FONTES
 	game.pontuacao = 0;
@@ -21,7 +22,7 @@ int main() {
 	player.posy = 150;
 	player.vidas = 3;
 	player.municao = 3;
-	player.facas = 2;
+	player.facas = 5;
 	player.direcao = 'E';
 
 	// INICIALIZAÇÃO DE UM BAÚ
@@ -56,34 +57,18 @@ int main() {
 	InitWindow(largura, altura, "Castle Wolfenstein");
 	SetTargetFPS(60);
 
+	// G A M E L O O P
 	while (!WindowShouldClose()) {
 
 		// reset da legenda
 		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
-		
-		mover_jogador();
-		for (i = 0; i < qnt_inimigos; i++) 
-			if (inimigos[i].vivo)
-				mover_inimigo(&inimigos[i]);
 
-		if (bau_perto(bau1) && IsKeyPressed(KEY_E)) {
-			loot_bau(bau1.conteudo, bau1.qnt, &bau1.estado);
-		}
-
-		tiro();
+//		DrawText(FormatText("%i", GetFPS()), 400, 10, 16, WHITE);		
 		
-		// SEÇÃO DAS FACAS ----------------------
-		for (i = 0; i < qnt_facas; i++)
-			if (facas[i].ar) arremesso(&facas[i]);
-		
-		if (IsKeyPressed(KEY_X) && player.facas) {
-			arremesso(&facas[seletor_facas]);
-			player.facas--;
-			seletor_facas++;
-		}
+		// pausar e despausar
+		if (IsKeyPressed(KEY_P)) pause = !pause;
 
-		loot_faca();
-		// --------------------------------------
+		if (!pause) mover(&seletor_facas);
 
 		draw();
 

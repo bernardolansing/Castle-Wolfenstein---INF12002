@@ -1,8 +1,9 @@
 #include <raylib.h>
 #include <string.h>
 #include <main.h>
+#include <collision.c>
 
-// movimenta o jogador pelo cen�rio
+// movimenta o jogador pelo cenário
 void mover_jogador() {
 
 	if (IsKeyDown(KEY_UP)) {
@@ -50,4 +51,35 @@ void mover_inimigo(struct Inimigo *inimigo) {
 	// atualiza a posição da hitbox
 	inimigo->hitbox.x = inimigo->posx;
 	inimigo->hitbox.y = inimigo->posy;
+}
+
+void mover(int *seletor_facas) {
+	int i;
+
+	// MOVIMENTAÇÃO DO JOGADOR E DOS INIMIGOS -----------------------
+	mover_jogador();
+		
+	for (i = 0; i < qnt_inimigos; i++) 
+		if (inimigos[i].vivo)
+			mover_inimigo(&inimigos[i]);
+	// --------------------------------------------------------------
+
+	if (bau_perto(bau1) && IsKeyPressed(KEY_E)) {
+		loot_bau(bau1.conteudo, bau1.qnt, &bau1.estado);
+	}
+
+	tiro();
+	
+	// SEÇÃO DAS FACAS ----------------------------------------------
+	for (i = 0; i < qnt_facas; i++)
+		if (facas[i].ar) arremesso(&facas[i]);
+	
+	if (IsKeyPressed(KEY_X) && player.facas) {
+		arremesso(&facas[*seletor_facas]);
+		player.facas--;
+		(*seletor_facas)++;
+	}
+
+	loot_faca();
+	// --------------------------------------------------------------
 }

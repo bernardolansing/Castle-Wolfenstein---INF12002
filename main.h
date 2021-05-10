@@ -10,7 +10,7 @@
 #define hud_height altura / 7
 
 #define qnt_inimigos 1
-#define qnt_facas 2  // contado com facas dentro de baús
+#define qnt_facas 5  // contado com facas dentro de baús
 
 
 struct Fonte {

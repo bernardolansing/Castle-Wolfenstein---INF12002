@@ -1,3 +1,6 @@
+#ifndef COLLISION_C
+#define COLLISION_C
+
 #include <main.h>
 #include <string.h>
 
@@ -9,7 +12,7 @@ bool checar_colisao(struct Inimigo inimigo) {
 	return (CheckCollisionRecs(box_jogador, inimigo.hitbox));
 }
 
-// responde se h� um ba� fechado por perto
+// responde se há um baú fechado por perto
 bool bau_perto(struct Bau bau) {
 	if (bau.estado) return false;  // retorna false caso o ba� j� tenha sido aberto
 
@@ -21,7 +24,7 @@ bool bau_perto(struct Bau bau) {
 
 // marca o baú como fechado e dá ao jogador seus espólios
 void loot_bau(char conteudo, int qnt, int *fechadura) {
-	*fechadura = 1;  // define o ba� como aberto (bau.estado = 1)
+	*fechadura = 1;  // define o baú como aberto (bau.estado = 1)
 
 	switch (conteudo) {
 		case 'M':
@@ -121,7 +124,7 @@ int hitfaca(struct Faca faca) {
 
 	// testar se a faca acerta algum inimigo
 	for (i = 0; i < qnt_inimigos; i++) {
-		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox)) {
+		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox) && inimigos[i].vivo) {
 			matar_inimigo(&inimigos[i]);
 			return 1;
 		}
@@ -137,10 +140,10 @@ int hitfaca(struct Faca faca) {
 void arremesso(struct Faca *faca) {
 	// caso a faca esteja guardada, será arremessada agora
 	if (!faca->ar) {
-		faca->posx = player.posx;
-		faca->posy = player.posy;
-		faca->hitbox.x = player.posx;
-		faca->hitbox.y = player.posy;
+		faca->posx = player.posx + 5;
+		faca->posy = player.posy - 15;
+		faca->hitbox.x = player.posx + 5;
+		faca->hitbox.y = player.posy - 15;
 		faca->direcao = player.direcao;
 	}
 
@@ -162,3 +165,4 @@ void arremesso(struct Faca *faca) {
 	}
 }
 
+#endif
