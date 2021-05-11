@@ -59,7 +59,7 @@ bool bau_perto(struct Bau bau)
 bool porta_perto(struct Porta porta)
 {
     Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
-    Rectangle box_porta = {porta.posx, porta.posy, 45, 45};
+    Rectangle box_porta = {porta.posx, porta.posy, 65, 65};
 
     return (CheckCollisionRecs(box_jogador, box_porta));
 }
@@ -252,6 +252,11 @@ void arremesso(struct Faca *faca)
         faca->drop.x = faca->posx;
         faca->drop.y = faca->posy;
     }
+}
+
+void legenda_pause()
+{
+    strcpy(game.legenda, "Jogo pausado!");
 }
 
 #endif

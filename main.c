@@ -69,9 +69,11 @@ int main()
 //		DrawText(FormatText("%i", GetFPS()), 400, 10, 16, WHITE);
 
         // pausar e despausar
-        if (IsKeyPressed(KEY_P)) pause = !pause;
+        if (IsKeyPresssed(KEY_P)) pause = !pause;
 
         if (!pause) mover(&seletor_facas);
+
+        if (pause) legenda_pause();
 
         draw();
     }
