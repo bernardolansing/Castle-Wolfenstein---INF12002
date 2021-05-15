@@ -323,7 +323,7 @@ void draw_hud() {
 }
 
 void draw_faca(struct Faca faca) {
-	int rotacao;
+	int rotacao = 0;
 	Color cor;
 	Texture2D imgfaca = LoadTexture("resources/scenario/knife.png");
 	Vector2 posicao = {faca.posx, faca.posy};
@@ -349,15 +349,15 @@ void draw() {
 	ClearBackground(DARKPURPLE);
 
 	draw_hud();
-	draw_bau(bau1);
+	for (i = 0; i < 10; i++) draw_bau(baus[i]);
 	draw_jogador();
 
-	for (i = 0; i < qnt_facas; i++) draw_faca(facas[i]);
+	for (i = 0; i < 10; i++) draw_faca(facas[i]);
 
-	for (i = 0; i < qnt_inimigos; i++) 
-		if (inimigos[i].vivo)
-			draw_inimigo(inimigos[i]);
+	for (i = 0; i < 10; i++)  {
+		if (inimigos[i].vivo) draw_inimigo(inimigos[i]);
 		else draw_inimigo_morto(inimigos[i]);
+	}
 	
 	draw_porta();
 

@@ -14,7 +14,7 @@ bool checar_contato_inimigo(struct Inimigo inimigo) {
 }
 
 void matar_jogador(int ini_index, double horamorte) {
-	Vector2 posicao_texto = {largura / 2 - 20, altura / 2 - 10};
+	//Vector2 posicao_texto = {largura / 2 - 20, altura / 2 - 10};
 	player.vidas--;
 
 	while (GetTime() - horamorte < 3) {
@@ -40,7 +40,7 @@ void matar_jogador(int ini_index, double horamorte) {
 
 // responde se há um baú fechado por perto
 bool bau_perto(struct Bau bau) {
-	if (bau.estado) return false;  // retorna false caso o ba� j� tenha sido aberto
+	if (bau.estado) return false;  // retorna false caso o baú já tenha sido aberto
 
 	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
 	Rectangle box_bau = {bau.posx, bau.posy, 65, 65};
@@ -48,25 +48,34 @@ bool bau_perto(struct Bau bau) {
 	return (CheckCollisionRecs(box_jogador, box_bau));
 }
 
-// marca o baú como fechado e dá ao jogador seus espólios
-void loot_bau(char conteudo, int qnt, int *fechadura) {
-	*fechadura = 1;  // define o baú como aberto (bau.estado = 1)
+// responde se há uma porta por perto
+bool porta_perto(struct Porta porta)
+{
+    Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
+    Rectangle box_porta = {porta.posx, porta.posy, 65, 65};
 
-	switch (conteudo) {
+    return (CheckCollisionRecs(box_jogador, box_porta));
+}
+
+// marca o baú como fechado e dá ao jogador seus espólios
+void loot_bau(struct Bau *bau) {
+	bau->estado = 1;
+
+	switch (bau->conteudo) {
 		case 'M':
-		player.municao += qnt;
+		player.municao += bau->qnt;
 		strcpy(game.legenda, "Voce abriu o bau e encontrou municao!");
 		break;
 
-		case 'V': player.vidas += qnt;
+		case 'V': player.vidas += bau->qnt;
 		strcpy(game.legenda, "Voce abriu o bau e ganhou uma vida!");
 		break;
 
-		case 'F': player.facas += qnt;
+		case 'F': player.facas += bau->qnt;
 		strcpy(game.legenda, "Voce abriu o bau e encontrou facas!");
 		break;
 
-		case 'P': game.pontuacao += qnt;
+		case 'P': game.pontuacao += bau->qnt;
 		strcpy(game.legenda, "Voce abriu o bau e ganhou pontos extras!");
 		break;
 	}
@@ -134,7 +143,7 @@ void tiro() {
 
 	if (IsKeyPressed(KEY_SPACE) && player.municao) {
 		
-		for (i = 0; i < qnt_inimigos; i++) {
+		for (i = 0; i < 10; i++) {
 			Rectangle box_inimigo = {inimigos[i].posx, inimigos[i].posy, ppl_width, ppl_height};
 			if (CheckCollisionRecs(disparobox(), box_inimigo) && inimigos[i].vivo)
 				matar_inimigo(&inimigos[i]);
@@ -149,7 +158,7 @@ int hitfaca(struct Faca faca) {
 	int i;
 
 	// testar se a faca acerta algum inimigo
-	for (i = 0; i < qnt_inimigos; i++) {
+	for (i = 0; i < 10; i++) {
 		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox) && inimigos[i].vivo) {
 			matar_inimigo(&inimigos[i]);
 			return 1;
@@ -167,9 +176,9 @@ void arremesso(struct Faca *faca) {
 	// caso a faca esteja guardada, será arremessada agora
 	if (!faca->ar) {
 		faca->posx = player.posx + 5;
-		faca->posy = player.posy - 15;
+		faca->posy = player.posy + 15;
 		faca->hitbox.x = player.posx + 5;
-		faca->hitbox.y = player.posy - 15;
+		faca->hitbox.y = player.posy + 15;
 		faca->direcao = player.direcao;
 	}
 

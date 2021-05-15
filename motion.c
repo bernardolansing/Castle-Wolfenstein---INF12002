@@ -59,25 +59,27 @@ void mover(int *seletor_facas) {
 	// MOVIMENTAÇÃO DO JOGADOR E DOS INIMIGOS -----------------------
 	mover_jogador();
 		
-	for (i = 0; i < qnt_inimigos; i++) 
+	for (i = 0; i < 10; i++) 
 		if (inimigos[i].vivo)
 			mover_inimigo(&inimigos[i]);
 	// --------------------------------------------------------------
 
 	// checar morte do jogador
-	for (i = 0; i < qnt_inimigos; i++) {
+	for (i = 0; i < 10; i++) {
 		if (inimigos[i].vivo && checar_contato_inimigo(inimigos[i]))
 			matar_jogador(i, GetTime());
 	}
 	
 	// loot do baú
-	if (bau_perto(bau1) && IsKeyPressed(KEY_E))
-		loot_bau(bau1.conteudo, bau1.qnt, &bau1.estado);
+	for (i = 0; i < 10; i++) {
+		if (bau_perto(baus[i]) && IsKeyPressed(KEY_E))
+			loot_bau(&baus[i]);
+	}
 
 	tiro();
 	
 	// SEÇÃO DAS FACAS ----------------------------------------------
-	for (i = 0; i < qnt_facas; i++)
+	for (i = 0; i < 10; i++)
 		if (facas[i].ar) arremesso(&facas[i]);
 	
 	if (IsKeyPressed(KEY_X) && player.facas) {
@@ -88,4 +90,8 @@ void mover(int *seletor_facas) {
 
 	loot_faca();
 	// --------------------------------------------------------------
+	
+	if (porta.liberada && porta_perto(porta))
+        strcpy(game.legenda, "Voce pode passar pela porta!");
+    
 }

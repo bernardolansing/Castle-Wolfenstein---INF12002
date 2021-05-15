@@ -67,12 +67,13 @@ struct Porta {
 	int liberada; // trancada (0) ou aberta (1).
 };
 
+
 struct Partida game;  // criação da partida
 struct Jogador player;  // criação do player
-struct Inimigo inimigos[qnt_inimigos];
+struct Inimigo inimigos[10];
 struct Porta porta;
 struct Fonte fonte;
-struct Bau bau1;  // criação do baú
-struct Faca facas[qnt_facas];
+struct Bau baus[10];  // criação do baú
+struct Faca facas[10];
 
 #endif
