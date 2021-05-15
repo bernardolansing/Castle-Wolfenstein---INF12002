@@ -69,7 +69,7 @@ int main()
 //		DrawText(FormatText("%i", GetFPS()), 400, 10, 16, WHITE);
 
         // pausar e despausar
-        if (IsKeyPresssed(KEY_P)) pause = !pause;
+        if (IsKeyPressed(KEY_P)) pause = !pause;
 
         if (!pause) mover(&seletor_facas);
 
