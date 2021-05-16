@@ -161,6 +161,7 @@ int hitfaca(struct Faca faca) {
 	for (i = 0; i < 10; i++) {
 		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox) && inimigos[i].vivo) {
 			matar_inimigo(&inimigos[i]);
+			game.pontuacao += 5;
 			return 1;
 		}
 	}

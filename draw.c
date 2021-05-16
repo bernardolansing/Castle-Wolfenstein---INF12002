@@ -350,7 +350,7 @@ void draw() {
 
 	draw_hud();
 	for (i = 0; i < 10; i++) draw_bau(baus[i]);
-	draw_jogador();
+	draw_porta();
 
 	for (i = 0; i < 10; i++) draw_faca(facas[i]);
 
@@ -359,9 +359,22 @@ void draw() {
 		else draw_inimigo_morto(inimigos[i]);
 	}
 	
-	draw_porta();
+	draw_jogador();
 
 	EndDrawing();
+}
+
+void derrota() {
+	double hora = GetTime();
+	BeginDrawing();
+
+	while (GetTime() - hora < 3 && !WindowShouldClose()) {
+		ClearBackground(BLACK);
+		DrawText("VOCE FOI DERROTADO", 200, 100, 22, YELLOW);
+	}
+
+	// EXECUTAR O MENU
+
 }
 
 #endif

@@ -55,7 +55,7 @@ void ler_level() {
 	char leitura;
 	int byte = -1, cont_inimigos = 0, cont_baus = 0;
 
-	arquivo = fopen("resources/levels/level0.txt", "rt");  // abre algum level para leitura
+	arquivo = fopen("resources/levels/level1.txt", "r");  // abre algum level para leitura
 
 	while (fread(&leitura, 1, 1, arquivo)) {
 		byte++;
