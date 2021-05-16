@@ -8,6 +8,7 @@ void inicializador() {
 	// inicialização de afins
 	game.pontuacao = 0;
 	game.legenda[0] = '\0';
+	game.seletor_facas = 0;
 	fonte.alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
 	fonte.jupiter_crash = LoadFont("resources/fonts/jupyter-crash.png");
 	

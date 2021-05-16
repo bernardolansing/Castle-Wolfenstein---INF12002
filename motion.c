@@ -53,7 +53,7 @@ void mover_inimigo(struct Inimigo *inimigo) {
 	inimigo->hitbox.y = inimigo->posy;
 }
 
-void mover(int *seletor_facas) {
+void mover() {
 	int i;
 
 	// MOVIMENTAÇÃO DO JOGADOR E DOS INIMIGOS -----------------------
@@ -83,9 +83,9 @@ void mover(int *seletor_facas) {
 		if (facas[i].ar) arremesso(&facas[i]);
 	
 	if (IsKeyPressed(KEY_X) && player.facas) {
-		arremesso(&facas[*seletor_facas]);
+		arremesso(&facas[game.seletor_facas]);
 		player.facas--;
-		(*seletor_facas)++;
+		(game.seletor_facas)++;
 	}
 
 	loot_faca();

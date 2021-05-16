@@ -5,14 +5,15 @@
 #include <collision.c>
 #include <string.h>
 #include <lerlevel.c>
+#include <salvarlevel.c>
 
 
 int main() {
-	int seletor_facas = 0;
 	bool pause = false;
 
 	inicializador();
 	ler_level();
+	//carregar_save();
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
 	SetTargetFPS(60);
@@ -21,15 +22,23 @@ int main() {
 	while (!WindowShouldClose()) {
 
 		// reset da legenda
-		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
-
-//		DrawText(FormatText("%i", GetFPS()), 400, 10, 16, WHITE);		
+		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);	
 		
 		// pausar e despausar
-		if (IsKeyPressed(KEY_P)) {pause = !pause; memset(game.legenda, 0, 50);}
+		if (IsKeyPressed(KEY_P)) {
+			pause = !pause;
+			memset(game.legenda, 0, 50);
+		}
 
-		if (!pause) mover(&seletor_facas);
+		if (!pause) mover();
 		else strcpy(game.legenda, "Jogo pausado!");
+
+		// salvar jogo
+		if (IsKeyPressed(KEY_S)) {
+			salvar_level();
+			strcpy(game.legenda, "Jogo salvo!");
+			game.horalegenda = GetTime();
+		}
 
 		draw();
 	}
