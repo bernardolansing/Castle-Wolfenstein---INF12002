@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <string.h>
-
+#include "main.h"
 #define TAM 5
 typedef struct
 {
     char nome[60];
     int pontuacao;
-}PLAYER;
+}VPLAYER;
 
 int pontuacao_jogador = 12;
-PLAYER player[(TAM + 1)];
+VPLAYER vplayer[(TAM + 1)];
 
 void print_ranking()
 {
@@ -26,10 +26,10 @@ void print_ranking()
         {
             if(x < TAM)
             {
-               if(fread(&player, sizeof(PLAYER), 1,fp) == 1)
+               if(fread(&vplayer, sizeof(VPLAYER), 1,fp) == 1)
                 {
-                printf("Jogador: %s \n", player[x].nome);
-                printf("Pontuacao: %d\n", player[x].pontuacao);
+                printf("Jogador: %s \n", vplayer[x].nome);
+                printf("Pontuacao: %d\n", vplayer[x].pontuacao);
 
                 }
             }
@@ -43,11 +43,11 @@ void update_ranking()
 {
     for(int k = 0; k < TAM; k ++)
     {
-        if(pontuacao_jogador >= player[k].pontuacao)
+        if(pontuacao_jogador >= vplayer[k].pontuacao)
         {
             printf("Nome do jogador: ");
-            scanf("%s", player[5].nome);
-            player[5].pontuacao = pontuacao_jogador;
+            scanf("%s", vplayer[5].nome);
+            vplayer[5].pontuacao = pontuacao_jogador;
             arruma_posicoes();
             //escreve_ranking();
             return;
@@ -56,16 +56,16 @@ void update_ranking()
 }
 
 arruma_posicoes(){
-    PLAYER aux;
+    VPLAYER aux;
     for(int j = 0; j < TAM - 1; j++)
     {
         for(int i = TAM - 1; i > -1; i--)
         {
-            if(player[i].pontuacao < player[i + 1].pontuacao)
+            if(vplayer[i].pontuacao < vplayer[i + 1].pontuacao)
             {
-                aux = player[i + 1];
-                player[i + 1] = player[i];
-                player[i] = aux;
+                aux = vplayer[i + 1];
+                vplayer[i + 1] = vplayer[i];
+                vplayer[i] = aux;
             }
         }
     }
@@ -85,7 +85,7 @@ escreve_ranking()
     fseek(fp, 0, SEEK_SET);
     for(int i = 0; i < TAM ; i++)
     {
-        if(fwrite(&player, sizeof(PLAYER), 1, fp) != 1)
+        if(fwrite(&vplayer, sizeof(VPLAYER), 1, fp) != 1)
         {
             printf("problema de escrita");
         }
@@ -95,44 +95,34 @@ escreve_ranking()
 }
 
 
-    char t[60];
-    strcpy(t, *b);
-    strcpy(*b, *a);
-    strcpy(*a, t);
-    //t = *b;
-   // *b = *a;
-   // *a = t;
-}
-int main()
+
+int starthighscores()
 {
 
     int pontuacao;
 
-    strcpy(player[0].nome, "Joao");
-    player[0].pontuacao = 10;
+    strcpy(vplayer[0].nome, "Joao");
+    vplayer[0].pontuacao = 10;
 
-    strcpy(player[1].nome, "Maria");
-    player[1].pontuacao = 8;
+    strcpy(vplayer[1].nome, "Maria");
+    vplayer[1].pontuacao = 8;
 
-    strcpy(player[2].nome, "Joana");
-    player[2].pontuacao = 6;
+    strcpy(vplayer[2].nome, "Joana");
+    vplayer[2].pontuacao = 6;
 
-    strcpy(player[3].nome, "Mario");
-    player[3].pontuacao = 4;
+    strcpy(vplayer[3].nome, "Mario");
+    vplayer[3].pontuacao = 4;
 
-    strcpy(player[4].nome, "Djario");
-    player[4].pontuacao = 2;
+    strcpy(vplayer[4].nome, "Djario");
+    vplayer[4].pontuacao = 2;
 
-    strcpy(player[5].nome, "Jogador");
-    player[5].pontuacao = 0;
+    strcpy(vplayer[5].nome, "Jogador");
+    vplayer[5].pontuacao = 0;
 
     if(acessos==0){
         escreve_ranking();
     }
     else{
-        print_ranking();
-        update_ranking();
-        escreve_ranking();
         print_ranking();
     }
 

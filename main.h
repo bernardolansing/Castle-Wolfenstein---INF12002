@@ -76,5 +76,5 @@ struct Porta porta;
 struct Fonte fonte;
 struct Bau baus[10];  // criação do baú
 struct Faca facas[10];
-
+int acessos = 0;
 #endif
