@@ -42,10 +42,16 @@ void mover_inimigo(struct Inimigo *inimigo) {
 	if (player.posx > inimigo->posx) {
 		inimigo->posx += 1;
 		inimigo->direcao = 'D';
+
+		if ((int) GetTime() % 2) inimigo->posy += 2;
+		else inimigo->posy -= 2;
 	}
 	else if (player.posx < inimigo->posx) {
 		inimigo->posx -= 1;
 		inimigo->direcao = 'E';
+
+		if ((int) GetTime() % 2) inimigo->posy += 2;
+		else inimigo->posy -= 2;
 	}
 
 	// atualiza a posição da hitbox
