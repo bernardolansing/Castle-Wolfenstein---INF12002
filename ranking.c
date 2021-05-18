@@ -21,7 +21,10 @@ int startranking(void)
     fonts[4] = LoadFont("resources/fonts/jupiter_crash.png");
     fonts[5] = LoadFont("resources/fonts/jupiter_crash.png");
 
-    starthighscores();
+   starthighscores();
+   concatenate++;
+   //acessos++;
+   // carregahighscores();
 
     const char *messages[MAX_FONTS] = {"Ranking",
                                 vplayer[0].nome,
@@ -30,7 +33,7 @@ int startranking(void)
                                 vplayer[3].nome,
                                 vplayer[4].nome };
 
-    const char *pontuacoes[MAX_FONTS] = {" ",
+    const char *pontuacoes[MAX_FONTS] = {"",
                                 vplayer[0].pontuacao,
                                 vplayer[1].pontuacao,
                                 vplayer[2].pontuacao,
@@ -49,11 +52,14 @@ int startranking(void)
 
 
     Color colors[MAX_FONTS] = { RED, WHITE, WHITE, WHITE, WHITE, WHITE};
+    if(concatenate == 1){
     for(int i = 0; i < MAX_FONTS; i++){
     if(i != 0){
                 sprintf(messages[i], "%s %d", messages[i], pontuacoes[i]);
             }
     }
+    }
+
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------

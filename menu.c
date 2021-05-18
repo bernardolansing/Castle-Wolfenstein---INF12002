@@ -53,7 +53,7 @@ void startmenu(void)
         colorsRecs[i].x = 300.0f;
         colorsRecs[i].y = 60.0f + 35.0f *i;
         colorsRecs[i].width = 200.0f;
-        colorsRecs[i].height = 38.0f;
+        colorsRecs[i].height = 34.0f;
     }
 
 
@@ -83,7 +83,7 @@ void startmenu(void)
 
             ClearBackground(BLACK);
 
-           DrawText("Castle of Wolfeinstein", 170, 20, 45, RED);
+           DrawText("Castle of Wolfenstein", 170, 20, 45, RED);
 
             for (int i = 0; i < MAX_FONTS; i++)
             {

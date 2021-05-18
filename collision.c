@@ -1,9 +1,9 @@
 #ifndef COLLISION_C
 #define COLLISION_C
 
-#include <main.h>
-#include <string.h>
-#include <draw.c>
+#include "main.h"
+#include "string.h"
+#include "draw.c"
 
 
 // verifica se o inimigo colidiu com o jogador
@@ -19,7 +19,7 @@ void matar_jogador(int ini_index, double horamorte) {
 
 	while (GetTime() - horamorte < 3) {
 		BeginDrawing();
-		
+
 		ClearBackground(BLACK);
 		draw_jogador();
 		draw_inimigo(inimigos[ini_index]);
@@ -81,7 +81,7 @@ void loot_bau(struct Bau *bau) {
 	}
 }
 
-void loot_faca() {	
+void loot_faca() {
 	int i;
 	Rectangle box_faca;
 	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
@@ -126,7 +126,7 @@ Rectangle disparobox() {
 		box_bullet.width = player.posx + 17; box_bullet.height = 1;
 		break;
 	}
-	
+
 	return box_bullet;
 }
 
@@ -142,7 +142,7 @@ void tiro() {
 	int i;
 
 	if (IsKeyPressed(KEY_SPACE) && player.municao) {
-		
+
 		for (i = 0; i < 10; i++) {
 			Rectangle box_inimigo = {inimigos[i].posx, inimigos[i].posy, ppl_width, ppl_height};
 			if (CheckCollisionRecs(disparobox(), box_inimigo) && inimigos[i].vivo)
@@ -183,7 +183,7 @@ void arremesso(struct Faca *faca) {
 		faca->direcao = player.direcao;
 	}
 
-	// tendo sido arremessada, percorrerá o cenário de acordo com a direção	
+	// tendo sido arremessada, percorrerá o cenário de acordo com a direção
 	faca->ar = 1;
 
 	switch (faca->direcao) {

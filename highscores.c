@@ -1,22 +1,26 @@
+#ifndef HIGHSCORES_C
+#define HIGHSCORES_C
+
+
 #include <stdio.h>
 #include <string.h>
 #include "ctype.h"
 #include "main.h"
 #define TAM 5
-typedef struct
-{
+#define TAM_NOME 60
+
+typedef struct{
     char nome[60];
     int pontuacao;
 }VPLAYER;
 
-int pontuacao_jogador = 12;
 VPLAYER vplayer[(TAM + 1)];
+char nome[TAM_NOME] = "\0";
 
 // testa se a pontuação entra para os highscores e pergunta o nome do jogador
 void gameover() {
     Rectangle textbox = {largura / 2 - 200, altura / 2 - 25, largura / 2, 50};
-    char nome[15] = "\0";
-    int letras = 0, key;
+        int letras = 0, key;
 
     while (1) {
         if (WindowShouldClose()) CloseWindow();
@@ -32,7 +36,7 @@ void gameover() {
         // obter texto
         key = GetKeyPressed();
 
-        if (isalpha((char) key) && letras < 15) {
+        if (isalpha((char) key) && (letras < TAM_NOME)) {
             nome[letras] = (char) key;
             letras++;
         }
@@ -43,14 +47,22 @@ void gameover() {
         }
 
         else if (key == KEY_ENTER) {
-            // ESCREVER O NOME E A PONTUAÇÃO
+            strcpy(vplayer[5].nome, nome);
+            update_ranking();
+            concatenate--;
+            break;
+            //return 0;
+            //main();
+            //startmenu();
         }
+        return;
     }
+
 
 
 }
 
-
+// funcao de teste para imprimir ranking
 void print_ranking()
 {
     int x = 0;
@@ -79,39 +91,43 @@ void print_ranking()
     fclose(fp);
 }
 
+// atualizar o ranking
 void update_ranking()
 {
-    for(int k = 0; k < TAM; k ++)
-    {
-        if(pontuacao_jogador >= vplayer[k].pontuacao)
+        if( game.pontuacao >= vplayer[4].pontuacao)
         {
-            printf("Nome do jogador: ");
-            scanf("%s", vplayer[5].nome);
-            vplayer[5].pontuacao = pontuacao_jogador;
+            //scanf("%s", vplayer[5].nome);
+            vplayer[5].pontuacao = game.pontuacao;
             arruma_posicoes();
-            //escreve_ranking();
-            return;
+            escreve_ranking();
         }
-    }
+
 }
 
+// coloca a nova pontuacao no ranking
 arruma_posicoes(){
     VPLAYER aux;
     for(int j = 0; j < TAM - 1; j++)
     {
-        for(int i = TAM - 1; i > -1; i--)
+        for(int i = TAM - j; i > -1; i--)
         {
             if(vplayer[i].pontuacao < vplayer[i + 1].pontuacao)
             {
-                aux = vplayer[i + 1];
-                vplayer[i + 1] = vplayer[i];
-                vplayer[i] = aux;
+                aux.pontuacao = vplayer[i].pontuacao;
+                vplayer[i].pontuacao = vplayer[i+1].pontuacao;
+                vplayer[i+ 1].pontuacao = aux.pontuacao;
+                strcpy(aux.nome, vplayer[i].nome);
+                strcpy( vplayer[i].nome, vplayer[i+1].nome);
+                strcpy(vplayer[i+1].nome, aux.nome);
+                //vplayer[i].nome = vplayer[i+1].nome;
+               // vplayer[i+ 1].nome = aux.nome;
             }
         }
     }
      return;
 }
 
+// salva ranking no highscores.bin
 escreve_ranking()
 {
     FILE *fp;
@@ -122,10 +138,10 @@ escreve_ranking()
     else
     {
     rewind(fp);
-    fseek(fp, 0, SEEK_SET);
+    //fseek(fp, 0, SEEK_SET);
     for(int i = 0; i < TAM ; i++)
     {
-        if(fwrite(&vplayer, sizeof(VPLAYER), 1, fp) != 1)
+        if(fwrite(&vplayer[i], sizeof(VPLAYER), 1, fp) != 1)
         {
             printf("problema de escrita");
         }
@@ -141,6 +157,7 @@ int starthighscores()
 
     int pontuacao;
 
+    if(acessos==0){
     strcpy(vplayer[0].nome, "Joao");
     vplayer[0].pontuacao = 10;
 
@@ -159,12 +176,15 @@ int starthighscores()
     strcpy(vplayer[5].nome, "Jogador");
     vplayer[5].pontuacao = 0;
 
-    if(acessos==0){
-        escreve_ranking();
+
+    escreve_ranking();
     }
-    else{
-        print_ranking();
-    }
+   else{
+      escreve_ranking();
+     }
+   acessos++;
 
     return 0;
 }
+
+#endif

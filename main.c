@@ -8,6 +8,7 @@
 #include "salvarlevel.c"
 #include "menu.c"
 
+int i = 0;
 
 int main() {
     inicializador();
@@ -18,7 +19,7 @@ int main() {
 
 	//carregar_save();
 
-	InitWindow(largura, altura, "Castle Wolfenstein");
+	//InitWindow(largura, altura, "Castle Wolfenstein");
 	SetTargetFPS(60);
 
 	// G A M E L O O P
@@ -37,7 +38,10 @@ int main() {
 		else strcpy(game.legenda, "Jogo pausado!");
 
 		// testar derrota
-		if (!player.vidas) derrota();
+		if (!player.vidas && ( i == 0)){
+            derrota();
+            i++;
+		}
 
 		// salvar jogo
 		if (IsKeyPressed(KEY_S)) {
@@ -48,7 +52,6 @@ int main() {
 
 		draw();
 	}
-
 
 	return 0;
 }

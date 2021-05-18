@@ -3,7 +3,7 @@
 
 #include <raylib.h>
 #include <string.h>
-#include <main.h>
+#include "main.h"
 #include "highscores.c"
 
 // desenha a tela da morte
@@ -142,7 +142,7 @@ void draw_jogador() {
 // carrega a imagem do inimigo e a imprime
 void draw_inimigo(struct Inimigo inimigo) {
 	if (!inimigo.vivo) return;
-	
+
 	int passo;
 	Texture2D imginimigo;
 
@@ -247,7 +247,7 @@ void draw_inimigo(struct Inimigo inimigo) {
 // imprime o inimigo morto
 void draw_inimigo_morto(struct Inimigo inimigo) {
 	Texture2D imginimigo;
-	
+
 	if (GetTime() - inimigo.horamorte < 0.3) imginimigo = LoadTexture("resources/enemy/dying-1.png");
 	else if (GetTime() - inimigo.horamorte < 0.6) imginimigo = LoadTexture("resources/enemy/dying-2.png");
 	else if (GetTime() - inimigo.horamorte < 0.9) imginimigo = LoadTexture("resources/enemy/dying-3.png");
@@ -328,7 +328,7 @@ void draw_faca(struct Faca faca) {
 	Color cor;
 	Texture2D imgfaca = LoadTexture("resources/scenario/knife.png");
 	Vector2 posicao = {faca.posx, faca.posy};
-	
+
 	switch (faca.direcao) {
 		case 'C': rotacao = -90; break;
 		case 'B': rotacao = 90; break;
@@ -359,7 +359,7 @@ void draw() {
 		if (inimigos[i].vivo) draw_inimigo(inimigos[i]);
 		else draw_inimigo_morto(inimigos[i]);
 	}
-	
+
 	draw_jogador();
 
 	EndDrawing();
@@ -379,7 +379,8 @@ void derrota() {
 		if (WindowShouldClose()) CloseWindow();  // evita que o jogo fique congelado
 	}
 
-	gameover();	
+	gameover();
+	return;
 }
 
 #endif
