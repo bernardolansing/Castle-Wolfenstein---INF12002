@@ -1,9 +1,15 @@
+#ifndef MENU_C
+#define MENU_C
+
 #include "raylib.h"
 #include "main.h"
+#include "ranking.c"
+#include "credits.c"
+#include "tutorial.c"
 
 #define MAX_FONTS   6
 
-int main(void)
+void startmenu(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -23,7 +29,7 @@ int main(void)
                                 "Load Game",
                                 "Tutorial",
                                 "Ranking",
-                                "Creditos",
+                                "Credits",
                                 "Quit" };
 
     const int spacings[MAX_FONTS] = { 4, 4, 4, 4, 4, 4};
@@ -84,35 +90,33 @@ int main(void)
                 DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
 
                     if(colorState[i]){
-                    if (!(IsMouseButtonPressed(MOUSE_CURSOR_IBEAM)))
+                    if (!(IsMouseButtonPressed(0)))
                     {
                     DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
                     }
-                    if(IsMouseButtonPressed(MOUSE_CURSOR_IBEAM)){
+                    if(IsMouseButtonPressed(0)){
                     switch (i){
                         case 0:
-                    //jogo();
-                    DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
+                        acessos++;
+                        return;
                     break;
                 case 1:
-                    //carrega_jogo();
+                    //if(verifica_jogo() == 1){}
+                   // carregar_save();
                     DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
+                    //else{}
                     break;
                 case 2:
-                    //tutorial();
-                    DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
+                    starttutorial();
                     break;
                 case 3:
-                    //ranking();
-                    DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
+                    startranking();
                     break;
                 case 4:
-                    //creditos();
-                    DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
+                    startcredits();
                     break;
                 case 5:
-                    DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
-                    return;
+                    CloseWindow();
                     }
                 }
             }
@@ -127,5 +131,8 @@ int main(void)
     CloseWindow();                 // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
-    return 0;
+    return;
 }
+
+#endif
+
