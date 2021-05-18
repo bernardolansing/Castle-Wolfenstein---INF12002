@@ -4,11 +4,12 @@
 #include <raylib.h>
 #include <string.h>
 #include <main.h>
+#include "highscores.c"
 
 // desenha a tela da morte
 void morte() {
 	DrawRectangle(0, 0, largura, altura, (Color) {0, 0, 0, 210});
-	DrawTextEx(fonte.alpha_beta, "Voce morreu!", (Vector2) {largura / 2, altura / 2}, 24, 5, ORANGE);
+	DrawTextEx(fonte.alpha_beta, "Voce morreu!", (Vector2) {largura / 2, altura / 2}, 30, 5, ORANGE);
 }
 
 
@@ -366,15 +367,19 @@ void draw() {
 
 void derrota() {
 	double hora = GetTime();
-	BeginDrawing();
 
-	while (GetTime() - hora < 3 && !WindowShouldClose()) {
+	while (GetTime() - hora < 3) {
+		BeginDrawing();
+
 		ClearBackground(BLACK);
-		DrawText("VOCE FOI DERROTADO", 200, 100, 22, YELLOW);
+		DrawText("VOCE FOI DERROTADO", 280, 135, 22, YELLOW);
+
+		EndDrawing();
+
+		if (WindowShouldClose()) CloseWindow();  // evita que o jogo fique congelado
 	}
 
-	// EXECUTAR O MENU
-
+	gameover();	
 }
 
 #endif

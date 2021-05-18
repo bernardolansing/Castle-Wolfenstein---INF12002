@@ -1,15 +1,16 @@
-#include <raylib.h>
-#include <main.h>
-#include <motion.c>
-#include <draw.c>
-#include <collision.c>
-#include <string.h>
-#include <lerlevel.c>
-#include <salvarlevel.c>
+#include "raylib.h"
+#include "main.h"
+#include "motion.c"
+#include "draw.c"
+#include "collision.c"
+#include "string.h"
+#include "lerlevel.c"
+#include "salvarlevel.c"
+//#include "menu.c"
 
 
 int main() {
-	bool pause = false;
+	bool pause = false; //exec_menu = true;
 
 	inicializador();
 	ler_level();
@@ -34,7 +35,7 @@ int main() {
 		else strcpy(game.legenda, "Jogo pausado!");
 
 		// testar derrota
-		//if (!player.vidas)
+		if (!player.vidas) derrota();
 
 		// salvar jogo
 		if (IsKeyPressed(KEY_S)) {

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "ctype.h"
 #include "main.h"
 #define TAM 5
 typedef struct
@@ -10,6 +11,45 @@ typedef struct
 
 int pontuacao_jogador = 12;
 VPLAYER vplayer[(TAM + 1)];
+
+// testa se a pontuação entra para os highscores e pergunta o nome do jogador
+void gameover() {
+    Rectangle textbox = {largura / 2 - 200, altura / 2 - 25, largura / 2, 50};
+    char nome[15] = "\0";
+    int letras = 0, key;
+
+    while (1) {
+        if (WindowShouldClose()) CloseWindow();
+
+        // desenhar
+        BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText("Insira seu nome:", 50, 20, 20, RED);
+        DrawRectangleLinesEx(textbox, 3, RED);
+        DrawText(nome, 210, 135, 20, YELLOW);
+        EndDrawing();
+
+        // obter texto
+        key = GetKeyPressed();
+
+        if (isalpha((char) key) && letras < 15) {
+            nome[letras] = (char) key;
+            letras++;
+        }
+
+        else if (key == KEY_BACKSPACE) {
+            nome[letras - 1] = '\0';
+            letras--;
+        }
+
+        else if (key == KEY_ENTER) {
+            // ESCREVER O NOME E A PONTUAÇÃO
+        }
+    }
+
+
+}
+
 
 void print_ranking()
 {
