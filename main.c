@@ -37,7 +37,7 @@ int main() {
 		else strcpy(game.legenda, "Jogo pausado!");
 
 		// testar derrota
-		//if (!player.vidas)
+		if (!player.vidas) derrota();
 
 		// salvar jogo
 		if (IsKeyPressed(KEY_S)) {
