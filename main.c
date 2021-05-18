@@ -1,4 +1,4 @@
-#include "raylib.h"
+#include <raylib.h>
 #include "main.h"
 #include "motion.c"
 #include "draw.c"
@@ -6,14 +6,16 @@
 #include "string.h"
 #include "lerlevel.c"
 #include "salvarlevel.c"
-//#include "menu.c"
+#include "menu.c"
 
 
 int main() {
-	bool pause = false; //exec_menu = true;
-
-	inicializador();
+    inicializador();
 	ler_level();
+    startmenu();
+	bool pause = false;
+
+
 	//carregar_save();
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
@@ -23,8 +25,8 @@ int main() {
 	while (!WindowShouldClose()) {
 
 		// reset da legenda
-		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);	
-		
+		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
+
 		// pausar e despausar
 		if (IsKeyPressed(KEY_P)) {
 			pause = !pause;
@@ -35,7 +37,7 @@ int main() {
 		else strcpy(game.legenda, "Jogo pausado!");
 
 		// testar derrota
-		if (!player.vidas) derrota();
+		//if (!player.vidas)
 
 		// salvar jogo
 		if (IsKeyPressed(KEY_S)) {
