@@ -380,7 +380,7 @@ void derrota() {
 	}
 
 	gameover();
-	return;
+	//return;
 }
 
 #endif

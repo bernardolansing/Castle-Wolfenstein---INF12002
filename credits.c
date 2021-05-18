@@ -1,3 +1,6 @@
+#ifndef CREDITS_C
+#define CREDITS_C
+
 #include "raylib.h"
 #include "main.h"
 #define MAX_FONTS 4
@@ -69,3 +72,5 @@ int startcredits(void)
 
     return 0;
 }
+
+#endif

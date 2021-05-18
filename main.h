@@ -24,6 +24,7 @@ struct Partida {
 	char legenda[50];
 	double horalegenda;
 	int seletor_facas;
+	bool executar_menu;
 };
 
 struct Jogador {

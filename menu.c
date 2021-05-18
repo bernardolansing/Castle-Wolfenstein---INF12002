@@ -13,7 +13,7 @@ void startmenu(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(largura, altura, "Castle of Wolfenstein");
+    //InitWindow(largura, altura, "Castle of Wolfenstein");
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
     Font fonts[MAX_FONTS] = { 0 };

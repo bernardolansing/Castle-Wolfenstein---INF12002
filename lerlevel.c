@@ -11,6 +11,7 @@ void inicializador() {
 	game.seletor_facas = 0;
 	fonte.alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
 	fonte.jupiter_crash = LoadFont("resources/fonts/jupyter-crash.png");
+	game.executar_menu = true;
 	
 	// inicialização do jogador
 	player.vidas = 3;

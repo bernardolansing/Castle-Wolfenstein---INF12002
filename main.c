@@ -13,17 +13,21 @@ int i = 0;
 int main() {
     inicializador();
 	ler_level();
-    startmenu();
+    
 	bool pause = false;
 
 
 	//carregar_save();
 
-	//InitWindow(largura, altura, "Castle Wolfenstein");
+	InitWindow(largura, altura, "Castle Wolfenstein");
 	SetTargetFPS(60);
 
 	// G A M E L O O P
 	while (!WindowShouldClose()) {
+
+		// execução do menu
+		if (game.executar_menu) startmenu();
+		game.executar_menu = false;
 
 		// reset da legenda
 		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
