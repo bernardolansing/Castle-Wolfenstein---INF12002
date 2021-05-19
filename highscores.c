@@ -51,13 +51,9 @@ void le_ranking()
 // atualizar o ranking
 void update_ranking()
 {
-		if( game.pontuacao >= vplayer[4].pontuacao)
-		{
-			//scanf("%s", vplayer[5].nome);
-			vplayer[5].pontuacao = game.pontuacao;
-			arruma_posicoes();
-			escreve_ranking();
-		}
+        le_ranking();
+        arruma_posicoes();
+        escreve_ranking();
 
 }
 
@@ -130,10 +126,11 @@ int starthighscores()
 	escreve_ranking();
 	}
    else{
-	  //update_ranking();
+
 	 //escreve_ranking();
-	 le_ranking();
-	 escreve_ranking();
+	 //le_ranking();
+	 update_ranking();
+	 //escreve_ranking();
 	 }
    acessos++;
 
@@ -170,13 +167,15 @@ void gameover() {
 		}
 
 		else if (key == KEY_ENTER) {
-			strcpy(vplayer[5].nome, nome);
-			update_ranking();
-			//concatenate--;
+            if( game.pontuacao >= vplayer[4].pontuacao)
+            {
+            strcpy(vplayer[5].nome, nome);
+			vplayer[5].pontuacao = game.pontuacao;
+            update_ranking();
+            break;
+            }
+            else
 			break;
-			//return 0;
-			//main();
-			//startmenu();
 		}
 
 		game.executar_menu = true;
