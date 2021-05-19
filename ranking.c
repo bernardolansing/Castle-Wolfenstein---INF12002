@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "main.h"
 #include "highscores.c"
+#include <string.h>
 
 #define MAX_FONTS   6
 
@@ -52,13 +53,6 @@ int startranking(void)
 
 
     Color colors[MAX_FONTS] = { RED, WHITE, WHITE, WHITE, WHITE, WHITE};
-    if(concatenate == 1){
-    for(int i = 0; i < MAX_FONTS; i++){
-    if(i != 0){
-                sprintf(messages[i], "%s %d", messages[i], pontuacoes[i]);
-            }
-    }
-    }
 
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -81,14 +75,16 @@ int startranking(void)
        // DrawText("RANKING!", 190, 200, 20, RED);
         DrawText("Press 'R' to return !", 300, 250, 20, RED);
         if (IsKeyPressed(KEY_R)) {
+           // concatenate--;
             return;
         }
 		 for (int i = 0; i < MAX_FONTS; i++)
             {
-
-               // aux[strcat(messages[i], pontuacoes[i] +48)];
-
+                if(i == 0){
                 DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
+                }
+                else
+                DrawTextEx(fonts[i], TextFormat("%s %d", messages[i], pontuacoes[i]), positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
                 //DrawTextEx(fonts[i], pontuacoes[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
             }
 
