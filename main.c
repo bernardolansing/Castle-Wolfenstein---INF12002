@@ -14,7 +14,7 @@ int main() {
 
    game.level = 0;
 
-//   inicializador();
+  inicializador();
   //ler_level(game.level);
 
 
@@ -40,22 +40,28 @@ int main() {
 	// G A M E L O O P
 	while (!WindowShouldClose()) {
 
+		
 		// execução do menu
-		if (game.executar_menu){
-            switch (startmenu()){
-        case 0:
-            inicializador();
-            ler_level(game.level);
-            draw();
-            break;
-        case 1:
-            inicializador();
-            carregar_save();
-            draw();
-            break;
-            }
+		if (game.executar_menu) {
+			switch (startmenu()){
+				case 0:
+					//inicializador();
+					ler_level(game.level);
+					draw();
+					break;
+				case 1:
+					//inicializador();
+					ler_level(game.level);
+					carregar_save();
+					draw();
+					break;
+
+				case -1:
+				return 0;
+        	}
         }
         game.executar_menu = false;
+		
 
 		// reset da legenda
 		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
@@ -73,9 +79,6 @@ int main() {
 		if ((player.vidas) <= 0){
             PlaySound(defeat);
             derrota();
-            //PlaySound(death);
-           // PlaySound(shot);
-            //PlaySound(knife);
 		}
 
 		// som inimigo morto
@@ -109,7 +112,7 @@ int main() {
 			game.horalegenda = GetTime();
 		}
 
-		//draw();
+		draw();
 	}
 
     CloseAudioDevice();

@@ -9,6 +9,9 @@ void salvar_level() {
 	FILE *arquivo = fopen("savegame.txt", "w");
 	int i;
 
+	// gravar o level
+	fprintf(arquivo, "%i\n", game.level);
+
 	// gravar a posição e stats do jogador
 	fprintf(arquivo, "%i %i\n", player.posx, player.posy);
 	fprintf(arquivo, "%i %i %i\n", player.municao, player.facas, player.vidas);
@@ -37,6 +40,9 @@ void salvar_level() {
 void carregar_save() {
 	FILE *arquivo = fopen("savegame.txt", "r");
 	int i;
+
+	// level
+	fscanf(arquivo, "%i", &game.level);
 
 	// player
 	fscanf(arquivo, "%i %i", &player.posx, &player.posy);

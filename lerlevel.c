@@ -61,6 +61,8 @@ void inicializador() {
 void level_reset() {
 	int i;
 
+	cont_inimigos = 0;
+
 	// reset dos baús
 	for (i = 0; i < 10; i++) {
 		baus[i].estado = 0;

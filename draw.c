@@ -292,27 +292,27 @@ void draw_hud() {
 	Texture2D ammo = LoadTexture("resources/hud/bullet.png");
 	DrawTextEx(mecha, "Municao:", posicao_municao, 16, 5, YELLOW);
 
-	for (i = 0; i < player.municao; i++) {
+	for (i = 0; i < player.municao; i++)
 		DrawTexture(ammo, 100 + 10 * i, altura - (hud.height / 2) - 13, WHITE);
-	}
+	
 
 	// Impressão das facas ----------------------
 	Vector2 posicao_facas = {120 + 10 * player.municao, posicao_municao.y};
 	Texture2D faca = LoadTexture("resources/hud/knife.png");
 	DrawTextEx(mecha, "Facas:", posicao_facas, 16, 5, YELLOW);
 
-	for (i = 0; i < player.facas; i++) {
+	for (i = 0; i < player.facas; i++)
 		DrawTexture(faca, posicao_facas.x + 44 + 10 * i, altura - (hud.height / 2) - 19, WHITE);
-	}
+	
 
 	// Impressão das vidas ----------------------
 	Vector2 posicao_vidas = {posicao_facas.x + 72 + 10 * player.facas, posicao_facas.y};
 	Texture2D coracao = LoadTexture("resources/hud/heart.png");
 	DrawTextEx(mecha, "Vidas:", posicao_vidas, 16, 5, YELLOW);
 
-	for (i = 0; i < player.vidas; i++) {
+	for (i = 0; i < player.vidas; i++)
 		DrawTexture(coracao, posicao_vidas.x + 54 + 30 * i, altura - (hud.height / 2) - 12, WHITE);
-	}
+	
 
 	// Impressão da legenda ---------------------
 	Vector2 posicao_legenda = {420, posicao_municao.y};
@@ -356,8 +356,8 @@ void draw() {
 	for (i = 0; i < 10; i++) draw_faca(facas[i]);
 
 	for (i = 0; i < 10; i++)  {
-		if (inimigos[i].vivo) draw_inimigo(inimigos[i]);
-		else draw_inimigo_morto(inimigos[i]);
+		if (!inimigos[i].vivo) draw_inimigo_morto(inimigos[i]);
+		else draw_inimigo(inimigos[i]);
 	}
 
 	draw_jogador();

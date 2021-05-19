@@ -130,6 +130,7 @@ void mover() {
 		game.level++;
 		level_reset();
 		ler_level(game.level);
+		porta.liberada = 0;
 	}
 
 	if (game.level == 5) vitoria();

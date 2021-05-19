@@ -122,6 +122,7 @@ int startmenu()
                     break;
                 case 5:
                     CloseWindow();
+                    return -1;
                     }
                 }
             }

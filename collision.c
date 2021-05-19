@@ -55,8 +55,6 @@ bool porta_perto(struct Porta porta)
     Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
     Rectangle box_porta = {(porta.posx-35), (porta.posy-35), 70, 70};
 
-	//strcpy(game.legenda, "Voce pode passar pela porta!");
-    porta.liberada--;
     return (CheckCollisionRecs(box_jogador, box_porta));
 }
 
@@ -101,12 +99,17 @@ void loot_faca() {
 			if (CheckCollisionRecs(box_jogador, box_faca)) {
 				facas[i].posx = largura * 2;
 				facas[i].posy = altura * 2;
+
 				player.facas++;
+				game.seletor_facas--;
+				
 				strcpy(game.legenda, "Voce apanhou uma faca!");
 				game.horalegenda = GetTime();
 			}
 		}
 	}
+
+	
 }
 
 Rectangle disparobox() {
