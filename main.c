@@ -8,16 +8,17 @@
 #include "salvarlevel.c"
 #include "menu.c"
 
-int i = 0;
-
-
 
 int main() {
-	bool pause = false;
-	
-	game.level = 0;
+    bool pause = false;
+
+    game.level = 0;
+
     inicializador();
 	ler_level(game.level);
+
+
+
 
 	//carregar_save();
 
@@ -44,9 +45,8 @@ int main() {
 		else strcpy(game.legenda, "Jogo pausado!");
 
 		// testar derrota
-		if (!player.vidas && ( i == 0)){
+		if ((player.vidas) <= 0){
             derrota();
-            i++;
 		}
 
 		// salvar jogo
