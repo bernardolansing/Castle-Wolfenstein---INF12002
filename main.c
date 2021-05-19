@@ -60,10 +60,33 @@ int main() {
 		if ((player.vidas) <= 0){
             PlaySound(defeat);
             derrota();
-            PlaySound(death);
-            PlaySound(shot);
-            PlaySound(knife);
+            //PlaySound(death);
+           // PlaySound(shot);
+            //PlaySound(knife);
+		}
+
+		// som inimigo morto
+		if(som_yell == 1){
             PlaySound(yell);
+            som_yell = 0;
+		}
+
+        // som inimigo morto
+		if(som_death == 1){
+            PlaySound(death);
+            som_death = 0;
+		}
+
+        // som tiro
+		if(som_shot == 1){
+            PlaySound(shot);
+            som_shot = 0;
+		}
+
+        // som hit faca
+		if(som_knife == 1){
+            PlaySound(knife);
+            som_knife = 0;
 		}
 
 		// salvar jogo

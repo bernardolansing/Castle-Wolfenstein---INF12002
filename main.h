@@ -79,4 +79,8 @@ struct Fonte fonte;
 struct Bau baus[10];  // criação do baú
 struct Faca facas[10];
 int acessos = 1;
+int som_yell = 0;
+int som_death = 0;
+int som_shot = 0;
+int som_knife = 0;
 #endif

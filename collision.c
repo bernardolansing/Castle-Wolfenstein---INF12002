@@ -16,8 +16,8 @@ bool checar_contato_inimigo(struct Inimigo inimigo) {
 
 void matar_jogador(int ini_index, double horamorte) {
 	//Vector2 posicao_texto = {largura / 2 - 20, altura / 2 - 10};
+	som_death++;
 	player.vidas--;
-
 	while (GetTime() - horamorte < 3) {
 		BeginDrawing();
 
@@ -50,13 +50,13 @@ bool bau_perto(struct Bau bau) {
 // responde se há uma porta por perto
 bool porta_perto(struct Porta porta)
 {
-	//if (!porta.liberada) return 0;
+	if (!porta.liberada) return 0;
 
     Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
     Rectangle box_porta = {(porta.posx-35), (porta.posy-35), 70, 70};
 
 	//strcpy(game.legenda, "Voce pode passar pela porta!");
-
+    porta.liberada--;
     return (CheckCollisionRecs(box_jogador, box_porta));
 }
 
@@ -139,6 +139,7 @@ void matar_inimigo(struct Inimigo *inimigo) {
 	strcpy(game.legenda, "Voce abateu um inimigo!");
 	game.horalegenda = GetTime();
 	game.pontuacao += 10;
+	som_yell++;
 }
 
 void tiro() {
@@ -154,6 +155,7 @@ void tiro() {
 
 		player.horadisparo = GetTime();
 		player.municao--;
+		som_shot++;
 	}
 }
 
@@ -165,6 +167,7 @@ int hitfaca(struct Faca faca) {
 		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox) && inimigos[i].vivo) {
 			matar_inimigo(&inimigos[i]);
 			game.pontuacao += 5;
+			som_knife++;
 			return 1;
 		}
 	}
@@ -172,7 +175,6 @@ int hitfaca(struct Faca faca) {
 	// testar se a faca acerta alguma parede
 	if (faca.posx < 15 || faca.posx > largura - 15) return 1;
 	if (faca.posy < 15 || faca.posy > altura - 15 - hud_height) return 1;
-
 	return 0;
 }
 
