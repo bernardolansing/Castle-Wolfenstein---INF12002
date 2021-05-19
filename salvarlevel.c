@@ -1,4 +1,8 @@
-#include <main.h>
+#ifndef SALVARLEVEL_C
+#define SALVARLEVEL_C
+
+
+#include "main.h"
 #include <stdio.h>
 
 void salvar_level() {
@@ -8,7 +12,7 @@ void salvar_level() {
 	// gravar a posição e stats do jogador
 	fprintf(arquivo, "%i %i\n", player.posx, player.posy);
 	fprintf(arquivo, "%i %i %i\n", player.municao, player.facas, player.vidas);
-	
+
 	// gravar a posição dos inimigos
 	for (i = 0; i < 10; i++)
 		fprintf(arquivo, "%i %i %i\n", inimigos[i].vivo, inimigos[i].posx, inimigos[i].posy);
@@ -20,12 +24,12 @@ void salvar_level() {
 	// gravar as informações das facas
 	for (i = 0; i < 10; i++)
 		fprintf(arquivo, "%c %i %i %i\n", facas[i].direcao, facas[i].ar, facas[i].posx, facas[i].posy);
-	
-	// gravar dados da partida
-	fprintf(arquivo, "%i %i %i\n", game.level, game.pontuacao, game.seletor_facas);
-	
 
-	
+	// gravar dados da partida
+	fprintf(arquivo, "%i %i\n", game.pontuacao, game.seletor_facas);
+
+
+
 	fclose(arquivo);
 }
 
@@ -37,20 +41,27 @@ void carregar_save() {
 	// player
 	fscanf(arquivo, "%i %i", &player.posx, &player.posy);
 	fscanf(arquivo, "%i %i %i", &player.municao, &player.facas, &player.vidas);
+	//player.horadisparo = -3;
+	//player.direcao = 'E';
 
 	// inimigos
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < 10; i++) {
 		fscanf(arquivo, "%i %i %i", &inimigos[i].vivo, &inimigos[i].posx, &inimigos[i].posy);
-	
+		//inimigos[i].direcao = 'E';
+	}
+
+
 	// baús
 	for (i = 0; i < 10; i++)
 		fscanf(arquivo, "%i", &baus[i].estado);
-	
+
 	// facas
 	for (i = 0; i < 10; i++)
 		fscanf(arquivo, "%c %i %i %i\n", &facas[i].direcao, &facas[i].ar, &facas[i].posx, &facas[i].posy);
-	
-	fscanf(arquivo, "%i %i %i", &game.level, &game.pontuacao, &game.seletor_facas);	
+
+	fscanf(arquivo, "%i %i", &game.pontuacao, &game.seletor_facas);
 
 	fclose(arquivo);
 }
+
+#endif

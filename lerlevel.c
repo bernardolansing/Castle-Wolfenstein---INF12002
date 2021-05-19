@@ -1,7 +1,7 @@
 #ifndef LERLEVEL_C
 #define LERLEVEL_C
 
-#include <main.h>
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +21,7 @@ void inicializador() {
 	fonte.alpha_beta = LoadFont("resources/fonts/alpha-beta.png");
 	fonte.jupiter_crash = LoadFont("resources/fonts/jupyter-crash.png");
 	game.executar_menu = true;
-	
+
 	// inicialização do jogador
 	player.vidas = 3;
 	player.municao = 3;
@@ -47,7 +47,7 @@ void inicializador() {
 		inimigos[i].hitbox.width = ppl_width;
 		inimigos[i].hitbox.height = ppl_height;
 	}
-	
+
 	// inicialização das facas
 	for (i = 0; i < 10; i++) {
 		facas[i].ar = 0;
@@ -86,7 +86,7 @@ void level_reset() {
 // cria o diretório do level atual
 void map_loader(int level, char destino[]) {
 	char diretorio[30] = "resources/levels/level";
-	
+
 	switch (level) {
 		case 0: strcat(diretorio, "0.txt"); break;
 		case 1: strcat(diretorio, "1.txt"); break;
@@ -107,16 +107,16 @@ void ler_level(int level) {
 
 	map_loader(level, diretorio);
 	arquivo = fopen(diretorio, "r");  // abre algum level para leitura
-	
+
 
 	while (fread(&leitura, 1, 1, arquivo)) {
 		byte++;
-		
+
 		switch (leitura) {
 			case '-': break;
 			case '\n': break;
 
-			case 'J': 
+			case 'J':
 			player.posx = (byte % 81) * 10;
 			player.posy = (byte / 81) * 10;
 			player_pos_inicial[0] = player.posx;
@@ -136,14 +136,14 @@ void ler_level(int level) {
 			inimigos_posx_iniciais[cont_inimigos] = inimigos[cont_inimigos].posx;
 			inimigos_posy_iniciais[cont_inimigos] = inimigos[cont_inimigos].posy;
 
-			cont_inimigos++;	
+			cont_inimigos++;
 			break;
 
 			default:
 			cont_baus++;
 			baus[cont_baus].posx = (byte % 81) * 10;
 			baus[cont_baus].posy = (byte / 81) * 10;
-			
+
 			switch (leitura) {
 				case 'V': baus[cont_baus].conteudo = 'V'; baus[cont_baus].qnt = 1; break;  // vida
 				case 'M': baus[cont_baus].conteudo = 'M'; baus[cont_baus].qnt = 2; break;  // munição
