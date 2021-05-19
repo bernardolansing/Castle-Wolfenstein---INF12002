@@ -15,6 +15,7 @@ typedef struct{
 }VPLAYER;
 
 VPLAYER vplayer[(TAM + 1)];
+
 char nome[TAM_NOME] = " ";
 
 
@@ -48,7 +49,18 @@ void print_ranking()
 	fclose(fp);
 }
 
+// atualizar o ranking
+void update_ranking()
+{
+		if( game.pontuacao >= vplayer[4].pontuacao)
+		{
+			//scanf("%s", vplayer[5].nome);
+			vplayer[5].pontuacao = game.pontuacao;
+			arruma_posicoes();
+			escreve_ranking();
+		}
 
+}
 
 // coloca a nova pontuacao no ranking
 void arruma_posicoes(){
@@ -65,21 +77,20 @@ void arruma_posicoes(){
 				strcpy(vplayer[i+1].nome, aux.nome);
 			}
 		}
-	 return;
 }
 
 // salva ranking no highscores.bin
 void escreve_ranking()
 {
 	FILE *fp;
-	if(!(fp= fopen("highscores.bin","rb+")))
+	if(!(fp= fopen("highscores.bin","r+b")))
 	{
 		printf("Erro criacao");
 	}
 	else
 	{
 	rewind(fp);
-	//fseek(fp, 0, SEEK_SET);
+	fseek(fp, 0, SEEK_SET);
 	for(int i = 0; i < TAM ; i++)
 	{
 		if(fwrite(&vplayer[i], sizeof(VPLAYER), 1, fp) != 1)
@@ -91,24 +102,17 @@ void escreve_ranking()
 	}
 }
 
-// atualizar o ranking
-void update_ranking()
-{
-		if( game.pontuacao >= vplayer[4].pontuacao)
-		{
-			//scanf("%s", vplayer[5].nome);
-			vplayer[5].pontuacao = game.pontuacao;
-			arruma_posicoes();
-			escreve_ranking();
-		}
 
-}
 
 int starthighscores()
 {
+   // for(int i = 0; i < TAM ; i++){
+   // strcpy(vplayer[i].nome, "vazio");
+   // vplayer[i].pontuacao = 0;
+    //}
 	if(acessos==0){
 	strcpy(vplayer[0].nome, "Joao");
-	vplayer[0].pontuacao = 300;
+	vplayer[0].pontuacao = 25;
 
 	strcpy(vplayer[1].nome, "Maria");
 	vplayer[1].pontuacao = 20;
@@ -124,12 +128,11 @@ int starthighscores()
 
 	strcpy(vplayer[5].nome, "Jogador");
 	vplayer[5].pontuacao = 0;
-
-
 	escreve_ranking();
 	}
    else{
-	  escreve_ranking();
+	  //update_ranking();
+	 escreve_ranking();
 	 }
    acessos++;
 

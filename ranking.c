@@ -22,7 +22,9 @@ int startranking(void)
     fonts[4] = LoadFont("resources/fonts/jupiter_crash.png");
     fonts[5] = LoadFont("resources/fonts/jupiter_crash.png");
 
-   starthighscores();
+    starthighscores();
+    acessos++;
+
 
     const char *messages[MAX_FONTS] = {"Ranking",
                                 vplayer[0].nome,
