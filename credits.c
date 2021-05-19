@@ -3,35 +3,35 @@
 
 #include "raylib.h"
 #include "main.h"
-#define MAX_FONTS 4
+#define C_MAX_FONTS 4
 
 int startcredits(void)
 {
-          Font fonts[MAX_FONTS] = { 0 };
+          Font fonts[C_MAX_FONTS] = { 0 };
 
     fonts[0] = LoadFont("resources/fonts/jupiter_crash.png");
     fonts[1] = LoadFont("resources/fonts/jupiter_crash.png");
     fonts[2] = LoadFont("resources/fonts/jupiter_crash.png");
     fonts[3] = LoadFont("resources/fonts/jupiter_crash.png");
 
-    const char *messages[MAX_FONTS] = {"Credits",
+    const char *messages[C_MAX_FONTS] = {"Credits",
                                 "Bernardo Lansing",
                                 "Frederico Villani",
                                 "UFRGS 2020/2"};
 
-    const int spacings[MAX_FONTS] = { 4, 4, 4, 4};
+    const int spacings[C_MAX_FONTS] = { 4, 4, 4, 4};
 
-    Vector2 positions[MAX_FONTS] = { 0 };
+    Vector2 positions[C_MAX_FONTS] = { 0 };
 
-    for (int i = 0; i < MAX_FONTS; i++)
+    for (int i = 0; i < C_MAX_FONTS; i++)
     {
         positions[i].x = largura/2.0f - MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
         positions[i].y = 10.0f + fonts[i].baseSize + 50.0f*i;
     }
 
-    Color colors[MAX_FONTS] = { RED, WHITE, WHITE, RED};
+    Color colors[C_MAX_FONTS] = { RED, WHITE, WHITE, RED};
 
-    int colorState[MAX_FONTS] = { 0 };
+    int colorState[C_MAX_FONTS] = { 0 };
     // Initialization
     //--------------------------------------------------------------------------------------
   //  InitWindow(largura, altura, "Castle of Wolfenstein");
@@ -53,7 +53,7 @@ int startcredits(void)
 
         ClearBackground(BLACK);
 
-        for (int i = 0; i < MAX_FONTS; i++)
+        for (int i = 0; i < C_MAX_FONTS; i++)
             {
                 DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
             }

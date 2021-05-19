@@ -23,6 +23,18 @@ int main() {
 	//carregar_save();
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
+    InitAudioDevice();
+
+    Sound death = LoadSound("resources/sound/death.mp3");
+
+    Sound defeat = LoadSound("resources/sound/defeat.mp3");
+
+    Sound yell = LoadSound("resources/sound/yell.mp3");
+
+    Sound shot = LoadSound("resources/sound/shot.mp3");
+
+    Sound knife = LoadSound("resources/sound/knife.mp3");
+
 	SetTargetFPS(60);
 
 	// G A M E L O O P
@@ -46,7 +58,12 @@ int main() {
 
 		// testar derrota
 		if ((player.vidas) <= 0){
+            PlaySound(defeat);
             derrota();
+            PlaySound(death);
+            PlaySound(shot);
+            PlaySound(knife);
+            PlaySound(yell);
 		}
 
 		// salvar jogo
@@ -59,5 +76,6 @@ int main() {
 		draw();
 	}
 
-	return 0;
+    CloseAudioDevice();
+	CloseWindow();
 }

@@ -14,7 +14,10 @@ void startmenu(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     //InitWindow(largura, altura, "Castle of Wolfenstein");
+    //InitAudioDevice();
 
+    Music music = LoadMusicStream("resources/sound/music.mp3");
+    PlayMusicStream(music);
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
     Font fonts[MAX_FONTS] = { 0 };
 
@@ -65,7 +68,7 @@ void startmenu(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-
+        UpdateMusicStream(music);
         // Update
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
@@ -128,6 +131,10 @@ void startmenu(void)
     }
 
     for (int i = 0; i < MAX_FONTS; i++) UnloadFont(fonts[i]);
+
+    UnloadMusicStream(music);
+
+    //CloseAudioDevice();
 
     CloseWindow();                 // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
