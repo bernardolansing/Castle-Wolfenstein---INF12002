@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include <string.h>
-#include <main.h>
-#include <collision.c>
+#include "main.h"
+#include "collision.c"
 #include "lerlevel.c"
 
 // movimenta o jogador pelo cenário
@@ -75,8 +75,8 @@ void mover() {
 
 	// MOVIMENTAÇÃO DO JOGADOR E DOS INIMIGOS -----------------------
 	mover_jogador();
-		
-	for (i = 0; i < 10; i++) 
+
+	for (i = 0; i < 10; i++)
 		if (inimigos[i].vivo)
 			mover_inimigo(&inimigos[i]);
 	// --------------------------------------------------------------
@@ -86,7 +86,15 @@ void mover() {
 		if (inimigos[i].vivo && checar_contato_inimigo(inimigos[i]))
 			matar_jogador(i, GetTime());
 	}
-	
+
+    // mensagem de abrir o bau
+    for (i = 0; i < 10; i++) {
+		if(bau_perto(baus[i]) && !IsKeyPressed(KEY_E))
+    {
+        strcpy(game.legenda, "Voce pode abrir o bau!");
+    }
+	}
+
 	// loot do baú
 	for (i = 0; i < 10; i++) {
 		if (bau_perto(baus[i]) && IsKeyPressed(KEY_E))
@@ -94,11 +102,11 @@ void mover() {
 	}
 
 	tiro();
-	
+
 	// SEÇÃO DAS FACAS ----------------------------------------------
 	for (i = 0; i < 10; i++)
 		if (facas[i].ar) arremesso(&facas[i]);
-	
+
 	if (IsKeyPressed(KEY_X) && player.facas) {
 		arremesso(&facas[game.seletor_facas]);
 		player.facas--;
@@ -107,12 +115,16 @@ void mover() {
 
 	loot_faca();
 	// --------------------------------------------------------------
-	
+
 	// CHECAR CONDIÇÕES DE VITÓRIA ----------------------------------
 	if (checar_sucesso()) porta.liberada = 1;
-	
-	porta_perto(porta);  // executar para imprimir legenda
-	
+
+    if(porta.liberada == 1 && porta_perto(porta))
+    {
+        strcpy(game.legenda, "Voce pode passar pela porta!");
+    }
+    // executar para imprimir legenda
+
 	if (IsKeyPressed(KEY_E) && porta_perto(porta)) {
 		draw_level_cleared();
 		game.level++;
@@ -122,5 +134,5 @@ void mover() {
 
 	if (game.level == 5) vitoria();
 	// --------------------------------------------------------------
-    
+
 }

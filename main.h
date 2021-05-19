@@ -79,5 +79,4 @@ struct Fonte fonte;
 struct Bau baus[10];  // criação do baú
 struct Faca facas[10];
 int acessos = 0;
-int concatenate = 0;
 #endif

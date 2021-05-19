@@ -42,7 +42,7 @@ bool bau_perto(struct Bau bau) {
 	if (bau.estado) return false;  // retorna false caso o baú já tenha sido aberto
 
 	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
-	Rectangle box_bau = {bau.posx, bau.posy, 65, 65};
+	Rectangle box_bau = {(bau.posx -32), (bau.posy -32), 64, 64};
 
 	return (CheckCollisionRecs(box_jogador, box_bau));
 }
@@ -50,12 +50,12 @@ bool bau_perto(struct Bau bau) {
 // responde se há uma porta por perto
 bool porta_perto(struct Porta porta)
 {
-	if (!porta.liberada) return 0;
+	//if (!porta.liberada) return 0;
 
     Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
-    Rectangle box_porta = {porta.posx, porta.posy, 65, 65};
+    Rectangle box_porta = {(porta.posx-35), (porta.posy-35), 70, 70};
 
-	strcpy(game.legenda, "Voce pode passar pela porta!");
+	//strcpy(game.legenda, "Voce pode passar pela porta!");
 
     return (CheckCollisionRecs(box_jogador, box_porta));
 }
