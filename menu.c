@@ -9,7 +9,7 @@
 
 #define MAX_FONTS   6
 
-void startmenu(void)
+int startmenu()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -101,13 +101,14 @@ void startmenu(void)
                     if(IsMouseButtonPressed(0)){
                     switch (i){
                         case 0:
-                        acessos++;
-                        return;
+                        //acessos++;
+                        return 0;
                     break;
                 case 1:
                     //if(verifica_jogo() == 1){}
                    // carregar_save();
-                    DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
+                    return 1;
+                    //DrawTextEx(fonts[i], "CLICOU", positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], MAROON);
                     //else{}
                     break;
                 case 2:

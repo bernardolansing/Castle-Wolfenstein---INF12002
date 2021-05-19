@@ -12,10 +12,10 @@
 int main() {
     bool pause = false;
 
-    game.level = 0;
+   game.level = 0;
 
-    inicializador();
-	ler_level(game.level);
+//   inicializador();
+  //ler_level(game.level);
 
 
 
@@ -41,8 +41,21 @@ int main() {
 	while (!WindowShouldClose()) {
 
 		// execução do menu
-		if (game.executar_menu) startmenu();
-		game.executar_menu = false;
+		if (game.executar_menu){
+            switch (startmenu()){
+        case 0:
+            inicializador();
+            ler_level(game.level);
+            draw();
+            break;
+        case 1:
+            inicializador();
+            carregar_save();
+            draw();
+            break;
+            }
+        }
+        game.executar_menu = false;
 
 		// reset da legenda
 		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
@@ -96,7 +109,7 @@ int main() {
 			game.horalegenda = GetTime();
 		}
 
-		draw();
+		//draw();
 	}
 
     CloseAudioDevice();

@@ -83,4 +83,5 @@ int som_yell = 0;
 int som_death = 0;
 int som_shot = 0;
 int som_knife = 0;
+int retorno;
 #endif
