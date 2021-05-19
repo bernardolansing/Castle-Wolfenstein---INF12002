@@ -409,8 +409,9 @@ void vitoria() {
 
 		if (WindowShouldClose()) CloseWindow();  // evita que o jogo fique congelado
 
-		gameover();
 	}
+	
+	gameover();
 }
 
 #endif

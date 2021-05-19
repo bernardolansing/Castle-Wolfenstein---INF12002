@@ -48,18 +48,7 @@ void print_ranking()
 	fclose(fp);
 }
 
-// atualizar o ranking
-void update_ranking()
-{
-		if( game.pontuacao >= vplayer[4].pontuacao)
-		{
-			//scanf("%s", vplayer[5].nome);
-			vplayer[5].pontuacao = game.pontuacao;
-			arruma_posicoes();
-			escreve_ranking();
-		}
 
-}
 
 // coloca a nova pontuacao no ranking
 void arruma_posicoes(){
@@ -102,13 +91,24 @@ void escreve_ranking()
 	}
 }
 
+// atualizar o ranking
+void update_ranking()
+{
+		if( game.pontuacao >= vplayer[4].pontuacao)
+		{
+			//scanf("%s", vplayer[5].nome);
+			vplayer[5].pontuacao = game.pontuacao;
+			arruma_posicoes();
+			escreve_ranking();
+		}
 
+}
 
 int starthighscores()
 {
 	if(acessos==0){
 	strcpy(vplayer[0].nome, "Joao");
-	vplayer[0].pontuacao = 25;
+	vplayer[0].pontuacao = 300;
 
 	strcpy(vplayer[1].nome, "Maria");
 	vplayer[1].pontuacao = 20;
@@ -168,7 +168,7 @@ void gameover() {
 		else if (key == KEY_ENTER) {
 			strcpy(vplayer[5].nome, nome);
 			update_ranking();
-			concatenate--;
+			//concatenate--;
 			break;
 			//return 0;
 			//main();
