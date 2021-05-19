@@ -21,26 +21,25 @@ char nome[TAM_NOME] = " ";
 
 
 // funcao de teste para imprimir ranking
-void print_ranking()
+void le_ranking()
 {
 	int x = 0;
 	FILE *fp;
-	if(!(fp = fopen("highscores.bin","rb")))
-		printf("Erro na abertura\n");
+	if(!(fp = fopen("highscores.bin","rb"))){
+		//printf("Erro na abertura\n");
+	}
 
 	else
 	{
 		rewind(fp);
-		printf("Ranking:\n");
 		while(x < TAM)
 		{
 			if(x < TAM)
 			{
-			   if(fread(&vplayer, sizeof(VPLAYER), 1,fp) == 1)
+			   if(fread(&vplayer[x], sizeof(VPLAYER), 1,fp) == 1)
 				{
-				printf("Jogador: %s \n", vplayer[x].nome);
-				printf("Pontuacao: %d\n", vplayer[x].pontuacao);
-
+				//printf("Jogador: %s \n", vplayer[x].nome);
+				//printf("Pontuacao: %d\n", vplayer[x].pontuacao);
 				}
 			}
 			x++;
@@ -132,6 +131,8 @@ int starthighscores()
 	}
    else{
 	  //update_ranking();
+	 //escreve_ranking();
+	 le_ranking();
 	 escreve_ranking();
 	 }
    acessos++;
