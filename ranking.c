@@ -23,9 +23,6 @@ int startranking(void)
     fonts[5] = LoadFont("resources/fonts/jupiter_crash.png");
 
    starthighscores();
-   concatenate++;
-   //acessos++;
-   // carregahighscores();
 
     const char *messages[MAX_FONTS] = {"Ranking",
                                 vplayer[0].nome,
@@ -72,10 +69,8 @@ int startranking(void)
 
         ClearBackground(BLACK);
 
-       // DrawText("RANKING!", 190, 200, 20, RED);
         DrawText("Press 'R' to return !", 300, 250, 20, RED);
         if (IsKeyPressed(KEY_R)) {
-           // concatenate--;
             return;
         }
 		 for (int i = 0; i < MAX_FONTS; i++)
@@ -85,7 +80,6 @@ int startranking(void)
                 }
                 else
                 DrawTextEx(fonts[i], TextFormat("%s %d", messages[i], pontuacoes[i]), positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
-                //DrawTextEx(fonts[i], pontuacoes[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
             }
 
 

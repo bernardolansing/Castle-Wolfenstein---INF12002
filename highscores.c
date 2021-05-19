@@ -7,15 +7,15 @@
 #include "ctype.h"
 #include "main.h"
 #define TAM 5
-#define TAM_NOME 60
+#define TAM_NOME 15
 
 typedef struct{
-	char nome[60];
+	char nome[TAM_NOME];
 	int pontuacao;
 }VPLAYER;
 
 VPLAYER vplayer[(TAM + 1)];
-char nome[TAM_NOME] = "\0";
+char nome[TAM_NOME] = " ";
 
 
 
@@ -64,8 +64,6 @@ void update_ranking()
 // coloca a nova pontuacao no ranking
 void arruma_posicoes(){
 	VPLAYER aux;
-	//for(int j = 0; j < TAM - 1; j++)
-	//{
 		for(int i = 4; i > -1; i--)
 		{
 			if(vplayer[i].pontuacao < vplayer[i + 1].pontuacao)
@@ -76,11 +74,8 @@ void arruma_posicoes(){
 				strcpy(aux.nome, vplayer[i].nome);
 				strcpy( vplayer[i].nome, vplayer[i+1].nome);
 				strcpy(vplayer[i+1].nome, aux.nome);
-				//vplayer[i].nome = vplayer[i+1].nome;
-			   // vplayer[i+ 1].nome = aux.nome;
 			}
 		}
-	//}
 	 return;
 }
 
@@ -179,7 +174,7 @@ void gameover() {
 			//main();
 			//startmenu();
 		}
-		
+
 		game.executar_menu = true;
 	}
 }
