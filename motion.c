@@ -2,6 +2,7 @@
 #include <string.h>
 #include <main.h>
 #include <collision.c>
+#include "lerlevel.c"
 
 // movimenta o jogador pelo cenário
 void mover_jogador() {
@@ -59,6 +60,16 @@ void mover_inimigo(struct Inimigo *inimigo) {
 	inimigo->hitbox.y = inimigo->posy;
 }
 
+// verifica se todas os inimigos já foram mortos
+int checar_sucesso() {
+	int i;
+
+	for (i = 0; i < 10; i++)
+		if (inimigos[i].vivo) return 0;
+
+	return 1;
+}
+
 void mover() {
 	int i;
 
@@ -97,7 +108,19 @@ void mover() {
 	loot_faca();
 	// --------------------------------------------------------------
 	
-	if (porta.liberada && porta_perto(porta))
-        strcpy(game.legenda, "Voce pode passar pela porta!");
+	// CHECAR CONDIÇÕES DE VITÓRIA ----------------------------------
+	if (checar_sucesso()) porta.liberada = 1;
+	
+	porta_perto(porta);  // executar para imprimir legenda
+	
+	if (IsKeyPressed(KEY_E) && porta_perto(porta)) {
+		draw_level_cleared();
+		game.level++;
+		level_reset();
+		ler_level(game.level);
+	}
+
+	if (game.level == 5) vitoria();
+	// --------------------------------------------------------------
     
 }

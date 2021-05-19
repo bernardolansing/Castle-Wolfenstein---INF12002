@@ -365,6 +365,19 @@ void draw() {
 	EndDrawing();
 }
 
+void draw_level_cleared() {
+	double hora = GetTime();
+
+	while (GetTime() - hora < 3) {
+		BeginDrawing();
+
+		ClearBackground(SKYBLUE);
+		DrawText("Fase concluida!", 280, 135, 22, DARKBLUE);
+
+		EndDrawing();
+	}
+}
+
 void derrota() {
 	double hora = GetTime();
 
@@ -381,6 +394,23 @@ void derrota() {
 
 	gameover();
 	//return;
+}
+
+void vitoria() {
+	double hora = GetTime();
+
+	while (GetTime() - hora < 3) {
+		BeginDrawing();
+
+		ClearBackground(PINK);
+		DrawText("VOCE VENCEU!!!", 280, 135, 28, ORANGE);
+
+		EndDrawing();
+
+		if (WindowShouldClose()) CloseWindow();  // evita que o jogo fique congelado
+
+		gameover();
+	}
 }
 
 #endif

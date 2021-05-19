@@ -4,6 +4,7 @@
 #include "main.h"
 #include "string.h"
 #include "draw.c"
+#include "lerlevel.c"
 
 
 // verifica se o inimigo colidiu com o jogador
@@ -33,9 +34,7 @@ void matar_jogador(int ini_index, double horamorte) {
 	}
 
 	// resetar a posicao do jogador e dos inimigos
-	// esta seção terá de ser refeita mais tarde
-	player.posx = 400; player.posy = 150;
-	inimigos[0].posx = 700; inimigos[0].posy = 70;
+	resetar_posicoes();
 }
 
 // responde se há um baú fechado por perto
@@ -51,8 +50,12 @@ bool bau_perto(struct Bau bau) {
 // responde se há uma porta por perto
 bool porta_perto(struct Porta porta)
 {
+	if (!porta.liberada) return 0;
+
     Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
     Rectangle box_porta = {porta.posx, porta.posy, 65, 65};
+
+	strcpy(game.legenda, "Voce pode passar pela porta!");
 
     return (CheckCollisionRecs(box_jogador, box_porta));
 }

@@ -1,6 +1,15 @@
+#ifndef LERLEVEL_C
+#define LERLEVEL_C
+
 #include <main.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+int cont_inimigos = 0;
+int inimigos_posx_iniciais[10];
+int inimigos_posy_iniciais[10];
+int player_pos_inicial[2];
 
 void inicializador() {
 	int i;
@@ -49,14 +58,56 @@ void inicializador() {
 	}
 }
 
+void level_reset() {
+	int i;
+
+	// reset dos baús
+	for (i = 0; i < 10; i++) {
+		baus[i].estado = 0;
+		baus[i].posx = 1000;
+		baus[i].posy = 1000;
+	}
+
+	// reset dos inimigos
+	for (i = 0; i < 10; i++) {
+		inimigos[i].vivo = 0;
+		inimigos[i].posx = 2000;
+		inimigos[i].posy = 2000;
+	}
+
+	// reset das facas
+	for (i = 0; i < 10; i++) {
+		facas[i].ar = 0;
+		facas[i].posx = 3000;
+		facas[i].posy = 3000;
+	}
+}
+
+// cria o diretório do level atual
+void map_loader(int level, char destino[]) {
+	char diretorio[30] = "resources/levels/level";
+	
+	switch (level) {
+		case 0: strcat(diretorio, "0.txt"); break;
+		case 1: strcat(diretorio, "1.txt"); break;
+		case 2: strcat(diretorio, "2.txt"); break;
+		case 3: strcat(diretorio, "3.txt"); break;
+		case 4: strcat(diretorio, "4.txt"); break;
+		case 5: strcat(diretorio, "5.txt"); break;
+	}
+
+	strcpy(destino, diretorio);
+}
 
 // ler arquivo de nível
-void ler_level() {
+void ler_level(int level) {
 	FILE *arquivo;
-	char leitura;
-	int byte = -1, cont_inimigos = 0, cont_baus = 0;
+	char leitura, diretorio[30];
+	int byte = -1, cont_baus = 0;
 
-	arquivo = fopen("resources/levels/level1.txt", "r");  // abre algum level para leitura
+	map_loader(level, diretorio);
+	arquivo = fopen(diretorio, "r");  // abre algum level para leitura
+	
 
 	while (fread(&leitura, 1, 1, arquivo)) {
 		byte++;
@@ -68,6 +119,8 @@ void ler_level() {
 			case 'J': 
 			player.posx = (byte % 81) * 10;
 			player.posy = (byte / 81) * 10;
+			player_pos_inicial[0] = player.posx;
+			player_pos_inicial[1] = player.posy;
 			break;
 
 			case 'P':
@@ -79,7 +132,11 @@ void ler_level() {
 			inimigos[cont_inimigos].posx = (byte % 81) * 10;
 			inimigos[cont_inimigos].posy = (byte / 81) * 10;
 			inimigos[cont_inimigos].vivo = 1;
-			cont_inimigos++;		
+
+			inimigos_posx_iniciais[cont_inimigos] = inimigos[cont_inimigos].posx;
+			inimigos_posy_iniciais[cont_inimigos] = inimigos[cont_inimigos].posy;
+
+			cont_inimigos++;	
 			break;
 
 			default:
@@ -99,7 +156,18 @@ void ler_level() {
 	}
 
 	fclose(arquivo);
-
-
 }
-	
+
+void resetar_posicoes() {
+	int i;
+
+	for (i = 0; i < cont_inimigos; i++) {
+		inimigos[i].posx = inimigos_posx_iniciais[i];
+		inimigos[i].posy = inimigos_posy_iniciais[i];
+	}
+
+	player.posx = player_pos_inicial[0];
+	player.posy = player_pos_inicial[1];
+}
+
+#endif

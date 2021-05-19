@@ -10,12 +10,14 @@
 
 int i = 0;
 
-int main() {
-    inicializador();
-	ler_level();
-    
-	bool pause = false;
 
+
+int main() {
+	bool pause = false;
+	
+	game.level = 0;
+    inicializador();
+	ler_level(game.level);
 
 	//carregar_save();
 
