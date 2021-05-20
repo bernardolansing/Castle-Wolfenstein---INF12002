@@ -136,7 +136,7 @@ void draw_hud() {
 
 	for (i = 0; i < player.municao; i++)
 		DrawTexture(ammo, 100 + 10 * i, altura - (hud.height / 2) - 13, WHITE);
-	
+
 
 	// Impressão das facas ----------------------
 	Vector2 posicao_facas = {120 + 10 * player.municao, posicao_municao.y};
@@ -145,7 +145,7 @@ void draw_hud() {
 
 	for (i = 0; i < player.facas; i++)
 		DrawTexture(faca, posicao_facas.x + 44 + 10 * i, altura - (hud.height / 2) - 19, WHITE);
-	
+
 
 	// Impressão das vidas ----------------------
 	Vector2 posicao_vidas = {posicao_facas.x + 72 + 10 * player.facas, posicao_facas.y};
@@ -154,7 +154,7 @@ void draw_hud() {
 
 	for (i = 0; i < player.vidas; i++)
 		DrawTexture(coracao, posicao_vidas.x + 54 + 30 * i, altura - (hud.height / 2) - 12, WHITE);
-	
+
 
 	// Impressão da legenda ---------------------
 	Vector2 posicao_legenda = {420, posicao_municao.y};
@@ -177,7 +177,7 @@ void draw_faca(struct Faca faca) {
 		case 'D': rotacao = 0; break;
 		case 'E': rotacao = 180; break;
 	}
-	
+
 
 	if (faca.ar) cor = WHITE;
 	else {cor = DARKGRAY; rotacao += 45;}
@@ -241,6 +241,8 @@ void derrota() {
 void vitoria() {
 	double hora = GetTime();
 
+	tocar_som(win);
+
 	while (GetTime() - hora < 3) {
 		BeginDrawing();
 
@@ -252,7 +254,7 @@ void vitoria() {
 		if (WindowShouldClose()) CloseWindow();  // evita que o jogo fique congelado
 
 	}
-	
+
 	gameover();
 }
 
