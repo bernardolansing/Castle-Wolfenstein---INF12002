@@ -5,6 +5,8 @@ int starttutorial(void)
 {
     while (!WindowShouldClose())
     {
+        UpdateMusicStream(music);
+
         BeginDrawing();
 
         ClearBackground(BLACK);

@@ -50,6 +50,7 @@ int startranking(void)
 
     while (!WindowShouldClose())
     {
+        UpdateMusicStream(music);
 
         BeginDrawing();
 

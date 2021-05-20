@@ -11,7 +11,6 @@
 
 int startmenu()
 {
-	Music music = LoadMusicStream("resources/sound/music.mp3");
 	PlayMusicStream(music);
 
 	Font fonts[MAX_FONTS] = { 0 };

@@ -78,6 +78,8 @@ struct Sounds {
 	Sound win;
 };
 
+Music music;
+
 
 struct Partida game;
 struct Jogador player;

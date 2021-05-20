@@ -397,8 +397,6 @@ void derrota() {
 void vitoria() {
 	double hora = GetTime();
 
-	tocar_som(win);
-
 	while (GetTime() - hora < 3) {
 		BeginDrawing();
 

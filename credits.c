@@ -35,7 +35,7 @@ int startcredits(void)
 
 	while (!WindowShouldClose())
 	{
-		
+        UpdateMusicStream(music);
 		BeginDrawing();
 		ClearBackground(BLACK);
 
