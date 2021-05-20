@@ -56,7 +56,7 @@ void mover_inimigo(struct Inimigo *inimigo) {
 	}
 
 	// atualiza a posição da hitbox
-	inimigo->hitbox.x = inimigo->posx;
+	inimigo->hitbox.x = inimigo->posx + 10;
 	inimigo->hitbox.y = inimigo->posy;
 }
 
@@ -123,7 +123,6 @@ void mover() {
     {
         strcpy(game.legenda, "Voce pode passar pela porta!");
     }
-    // executar para imprimir legenda
 
 	if (IsKeyPressed(KEY_E) && porta_perto(porta)) {
 		tocar_som(sounds.nextlevel);

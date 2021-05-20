@@ -12,7 +12,7 @@ void tocar_som(Sound som) {
 
 // verifica se o inimigo colidiu com o jogador
 bool checar_contato_inimigo(struct Inimigo inimigo) {
-	Rectangle box_jogador = {player.posx, player.posy, ppl_width, ppl_height};
+	Rectangle box_jogador = {player.posx + 10, player.posy, ppl_width, ppl_height};
 
 	return (CheckCollisionRecs(box_jogador, inimigo.hitbox));
 }
@@ -95,7 +95,7 @@ void loot_faca() {
 	box_faca.width = 35;
 	box_faca.height = 30;
 
-	for (i = 0; i < qnt_facas; i++) {
+	for (i = 0; i < 10; i++) {
 		if (!facas[i].ar) {
 			box_faca.x = facas[i].posx - 17;
 			box_faca.y = facas[i].posy;
@@ -148,7 +148,6 @@ void matar_inimigo(struct Inimigo *inimigo) {
 	strcpy(game.legenda, "Voce abateu um inimigo!");
 	game.horalegenda = GetTime();
 	game.pontuacao += 10;
-	som_yell++;
 }
 
 void tiro() {
@@ -191,7 +190,7 @@ void arremesso(struct Faca *faca) {
 	if (!faca->ar) {
 		faca->posx = player.posx + 5;
 		faca->posy = player.posy + 15;
-		faca->hitbox.x = player.posx + 5;
+		faca->hitbox.x = player.posx + 10;
 		faca->hitbox.y = player.posy + 15;
 		faca->direcao = player.direcao;
 

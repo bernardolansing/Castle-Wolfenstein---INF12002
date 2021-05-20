@@ -3,22 +3,8 @@
 
 int starttutorial(void)
 {
-    // Initialization
-    //-------------------------------------------------------------------------------------
-
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose())
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
-
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(BLACK);
@@ -34,18 +20,13 @@ int starttutorial(void)
         DrawText("ESC - CLOSE", 300, 200, 20, RED);
         DrawText("Press 'R' to return !", 300, 250, 20, RED);
         if (IsKeyPressed(KEY_R)) {
-            return;
+            return 0;
 		}
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
+    CloseWindow();
     return 0;
 }
 

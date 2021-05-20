@@ -9,9 +9,6 @@
 #define ppl_height 48
 #define hud_height altura / 7
 
-#define qnt_inimigos 1
-#define qnt_facas 5  // contado com facas dentro de baús
-
 
 struct Fonte {
 	Font alpha_beta;
@@ -81,19 +78,15 @@ struct Sounds {
 };
 
 
-struct Partida game;  // criação da partida
-struct Jogador player;  // criação do player
+struct Partida game;
+struct Jogador player;
 struct Inimigo inimigos[10];
 struct Porta porta;
 struct Fonte fonte;
-struct Bau baus[10];  // criação do baú
+struct Bau baus[10];
 struct Faca facas[10];
 struct Sounds sounds;
 
 int acessos = 1;
-int som_yell = 0;
-int som_death = 0;
-int som_shot = 0;
-int som_knife = 0;
-int retorno;
+
 #endif

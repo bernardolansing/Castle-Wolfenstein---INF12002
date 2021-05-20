@@ -7,70 +7,53 @@
 
 int startcredits(void)
 {
-          Font fonts[C_MAX_FONTS] = { 0 };
+	Font fonts[C_MAX_FONTS] = { 0 };
 
-    fonts[0] = LoadFont("resources/fonts/jupiter_crash.png");
-    fonts[1] = LoadFont("resources/fonts/jupiter_crash.png");
-    fonts[2] = LoadFont("resources/fonts/jupiter_crash.png");
-    fonts[3] = LoadFont("resources/fonts/jupiter_crash.png");
+	fonts[0] = LoadFont("resources/fonts/jupiter_crash.png");
+	fonts[1] = LoadFont("resources/fonts/jupiter_crash.png");
+	fonts[2] = LoadFont("resources/fonts/jupiter_crash.png");
+	fonts[3] = LoadFont("resources/fonts/jupiter_crash.png");
 
-    const char *messages[C_MAX_FONTS] = {"Credits",
-                                "Bernardo Lansing",
-                                "Frederico Villani",
-                                "UFRGS 2020/2"};
+	const char *messages[C_MAX_FONTS] = {"Credits",
+								"Bernardo Lansing",
+								"Frederico Villani",
+								"UFRGS 2020/2"};
 
-    const int spacings[C_MAX_FONTS] = { 4, 4, 4, 4};
+	const int spacings[C_MAX_FONTS] = { 4, 4, 4, 4};
 
-    Vector2 positions[C_MAX_FONTS] = { 0 };
+	Vector2 positions[C_MAX_FONTS] = { 0 };
 
-    for (int i = 0; i < C_MAX_FONTS; i++)
-    {
-        positions[i].x = largura/2.0f - MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
-        positions[i].y = 10.0f + fonts[i].baseSize + 50.0f*i;
-    }
+	for (int i = 0; i < C_MAX_FONTS; i++)
+	{
+		positions[i].x = largura/2.0f - MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
+		positions[i].y = 10.0f + fonts[i].baseSize + 50.0f*i;
+	}
 
-    Color colors[C_MAX_FONTS] = { RED, WHITE, WHITE, RED};
+	Color colors[C_MAX_FONTS] = { RED, WHITE, WHITE, RED};
 
-    int colorState[C_MAX_FONTS] = { 0 };
-    // Initialization
-    //--------------------------------------------------------------------------------------
-  //  InitWindow(largura, altura, "Castle of Wolfenstein");
+	SetTargetFPS(60);
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
+	while (!WindowShouldClose())
+	{
+		
+		BeginDrawing();
+		ClearBackground(BLACK);
 
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
+		for (int i = 0; i < C_MAX_FONTS; i++)
+			DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
+		DrawText("Press 'R' to return!", 300, 250, 20, RED);
 
-        ClearBackground(BLACK);
-
-        for (int i = 0; i < C_MAX_FONTS; i++)
-            {
-                DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
-            }
-        DrawText("Press 'R' to return!", 300, 250, 20, RED);
-        if (IsKeyPressed(KEY_R)) {
-            return;
+		if (IsKeyPressed(KEY_R)) {
+			return 0;
 		}
-        EndDrawing();
-        //----------------------------------------------------------------------------------
-    }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
+		EndDrawing();
 
-    return 0;
+	}
+
+	CloseWindow();
+	return 0;
 }
 
 #endif

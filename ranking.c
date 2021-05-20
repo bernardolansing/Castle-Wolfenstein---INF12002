@@ -7,12 +7,6 @@
 
 int startranking(void)
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-   // InitWindow(largura, altura, "Castle of Wolfenstein");
-
-    char aux[10];
-
     Font fonts[MAX_FONTS] = { 0 };
 
     fonts[0] = LoadFont("resources/fonts/jupiter_crash.png");
@@ -33,7 +27,7 @@ int startranking(void)
                                 vplayer[3].nome,
                                 vplayer[4].nome };
 
-    const char *pontuacoes[MAX_FONTS] = {"",
+    const int pontuacoes[MAX_FONTS] = {//"",
                                 vplayer[0].pontuacao,
                                 vplayer[1].pontuacao,
                                 vplayer[2].pontuacao,
@@ -54,26 +48,16 @@ int startranking(void)
     Color colors[MAX_FONTS] = { RED, WHITE, WHITE, WHITE, WHITE, WHITE};
 
 
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose())
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
 
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(BLACK);
 
         DrawText("Press 'R' to return !", 300, 250, 20, RED);
         if (IsKeyPressed(KEY_R)) {
-            return;
+            return 0;
         }
 		 for (int i = 0; i < MAX_FONTS; i++)
             {
@@ -81,18 +65,13 @@ int startranking(void)
                 DrawTextEx(fonts[i], messages[i], positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
                 }
                 else
-                DrawTextEx(fonts[i], TextFormat("%s %d", messages[i], pontuacoes[i]), positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
+                DrawTextEx(fonts[i], TextFormat("%s %d", messages[i], pontuacoes[i - 1]), positions[i], fonts[i].baseSize*2.0f, (float)spacings[i], colors[i]);
             }
 
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
+    CloseWindow();
     return 0;
 }

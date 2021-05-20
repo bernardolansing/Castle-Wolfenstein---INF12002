@@ -47,14 +47,11 @@ void carregar_save() {
 	// player
 	fscanf(arquivo, "%i %i", &player.posx, &player.posy);
 	fscanf(arquivo, "%i %i %i", &player.municao, &player.facas, &player.vidas);
-	//player.horadisparo = -3;
-	//player.direcao = 'E';
+
 
 	// inimigos
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 10; i++)
 		fscanf(arquivo, "%i %i %i", &inimigos[i].vivo, &inimigos[i].posx, &inimigos[i].posy);
-		//inimigos[i].direcao = 'E';
-	}
 
 
 	// baús

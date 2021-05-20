@@ -134,8 +134,6 @@ void draw_jogador() {
 		break;
 	}
 
-	// Rectangle Playerbox = {player.posx, player.posy, 44, 53};  // define a caixa do jogador
-
 	DrawTexture(imgplayer, player.posx, player.posy, RAYWHITE);
 }
 
@@ -335,6 +333,7 @@ void draw_faca(struct Faca faca) {
 		case 'D': rotacao = 0; break;
 		case 'E': rotacao = 180; break;
 	}
+	
 
 	if (faca.ar) cor = WHITE;
 	else {cor = DARKGRAY; rotacao += 45;}
@@ -393,7 +392,6 @@ void derrota() {
 	}
 
 	gameover();
-	//return;
 }
 
 void vitoria() {
