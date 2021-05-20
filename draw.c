@@ -3,6 +3,7 @@
 
 #include <raylib.h>
 #include <string.h>
+#include <ctype.h>
 #include "main.h"
 #include "highscores.c"
 
@@ -26,6 +27,7 @@ int selec_passo(int posicao) {
 
 // seleciona a imagem correta do jogador, de acordo com direção e passo, e a imprime
 void draw_jogador() {
+	char diretorio[50] = "resources/player/player-";
 	int passo;
 	Texture2D imgplayer;
 
@@ -38,102 +40,23 @@ void draw_jogador() {
 		}
 	}
 
-	// carrega a imagem sob nome "imgplayer"
-	else switch (player.direcao) {
-
-		case 'C':
-		passo = selec_passo(player.posy);
-
-		switch (passo) {
-			case 0:
-			imgplayer = LoadTexture("resources/player/player-up-4.png");
-			break;
-
-			case 1:
-			imgplayer = LoadTexture("resources/player/player-up-1.png");
-			break;
-
-			case 2:
-			imgplayer = LoadTexture("resources/player/player-up-2.png");
-			break;
-
-			case 3:
-			imgplayer = LoadTexture("resources/player/player-up-3.png");
-			break;
+	else {
+		switch (player.direcao) {
+			case 'C': strcat(diretorio, "up-"); passo = selec_passo(player.posy); break;
+			case 'B': strcat(diretorio, "down-"); passo = selec_passo(player.posy); break;
+			case 'D': strcat(diretorio, "right-"); passo = selec_passo(player.posx); break;
+			case 'E': strcat(diretorio, "left-"); passo = selec_passo(player.posx); break;
 		}
 
-		break;
-
-		case 'B':
-		passo = selec_passo(player.posy);
-
 		switch (passo) {
-			case 0:
-			imgplayer = LoadTexture("resources/player/player-down-4.png");
-			break;
-
-			case 1:
-			imgplayer = LoadTexture("resources/player/player-down-1.png");
-			break;
-
-			case 2:
-			imgplayer = LoadTexture("resources/player/player-down-2.png");
-			break;
-
-			case 3:
-			imgplayer = LoadTexture("resources/player/player-down-3.png");
-			break;
+			case 0: strcat(diretorio, "4.png"); break;
+			case 1: strcat(diretorio, "1.png"); break;
+			case 2: strcat(diretorio, "2.png"); break;
+			case 3: strcat(diretorio, "3.png"); break;
 		}
-
-		break;
-
-		case 'D':
-		passo = selec_passo(player.posx);
-
-		switch (passo) {
-			case 0:
-			imgplayer = LoadTexture("resources/player/player-right-4.png");
-			break;
-
-			case 1:
-			imgplayer = LoadTexture("resources/player/player-right-1.png");
-			break;
-
-			case 2:
-			imgplayer = LoadTexture("resources/player/player-right-2.png");
-			break;
-
-			case 3:
-			imgplayer = LoadTexture("resources/player/player-right-3.png");
-			break;
-		}
-
-		break;
-
-		case 'E':
-		passo = selec_passo(player.posx);
-
-		switch (passo) {
-			case 0:
-			imgplayer = LoadTexture("resources/player/player-left-4.png");
-			break;
-
-			case 1:
-			imgplayer = LoadTexture("resources/player/player-left-1.png");
-			break;
-
-			case 2:
-			imgplayer = LoadTexture("resources/player/player-left-2.png");
-			break;
-
-			case 3:
-			imgplayer = LoadTexture("resources/player/player-left-3.png");
-			break;
-		}
-
-		break;
 	}
 
+	imgplayer = LoadTexture(diretorio);
 	DrawTexture(imgplayer, player.posx, player.posy, RAYWHITE);
 }
 
@@ -141,104 +64,25 @@ void draw_jogador() {
 void draw_inimigo(struct Inimigo inimigo) {
 	if (!inimigo.vivo) return;
 
+	char diretorio[50] = "resources/enemy/enemy-";
 	int passo;
 	Texture2D imginimigo;
 
 	switch (inimigo.direcao) {
-
-		case 'C':
-		passo = selec_passo(inimigo.posy);
-
-		switch (passo) {
-			case 0:
-			imginimigo = LoadTexture("resources/enemy/enemy-up-4.png");
-			break;
-
-			case 1:
-			imginimigo = LoadTexture("resources/enemy/enemy-up-1.png");
-			break;
-
-			case 2:
-			imginimigo = LoadTexture("resources/enemy/enemy-up-2.png");
-			break;
-
-			case 3:
-			imginimigo = LoadTexture("resources/enemy/enemy-up-3.png");
-			break;
-		}
-
-		break;
-
-		case 'B':
-		passo = selec_passo(inimigo.posy);
-
-		switch (passo) {
-			case 0:
-			imginimigo = LoadTexture("resources/enemy/enemy-down-4.png");
-			break;
-
-			case 1:
-			imginimigo = LoadTexture("resources/enemy/enemy-down-1.png");
-			break;
-
-			case 2:
-			imginimigo = LoadTexture("resources/enemy/enemy-down-2.png");
-			break;
-
-			case 3:
-			imginimigo = LoadTexture("resources/enemy/enemy-down-3.png");
-			break;
-		}
-
-		break;
-
-		case 'D':
-		passo = selec_passo(inimigo.posx);
-
-		switch (passo) {
-			case 0:
-			imginimigo = LoadTexture("resources/enemy/enemy-right-4.png");
-			break;
-
-			case 1:
-			imginimigo = LoadTexture("resources/enemy/enemy-right-1.png");
-			break;
-
-			case 2:
-			imginimigo = LoadTexture("resources/enemy/enemy-right-2.png");
-			break;
-
-			case 3:
-			imginimigo = LoadTexture("resources/enemy/enemy-right-3.png");
-			break;
-		}
-
-		break;
-
-		case 'E':
-		passo = selec_passo(inimigo.posx);
-
-		switch (passo) {
-			case 0:
-			imginimigo = LoadTexture("resources/enemy/enemy-left-4.png");
-			break;
-
-			case 1:
-			imginimigo = LoadTexture("resources/enemy/enemy-left-1.png");
-			break;
-
-			case 2:
-			imginimigo = LoadTexture("resources/enemy/enemy-left-2.png");
-			break;
-
-			case 3:
-			imginimigo = LoadTexture("resources/enemy/enemy-left-3.png");
-			break;
-		}
-
-		break;
+		case 'C': strcat(diretorio, "up-"); passo = selec_passo(inimigo.posy); break;
+		case 'B': strcat(diretorio, "down-"); passo = selec_passo(inimigo.posy); break;
+		case 'D': strcat(diretorio, "right-"); passo = selec_passo(inimigo.posx); break;
+		case 'E': strcat(diretorio, "left-"); passo = selec_passo(inimigo.posx); break;
 	}
 
+	switch (passo) {
+		case 0: strcat(diretorio, "4.png"); break;
+		case 1: strcat(diretorio, "1.png"); break;
+		case 2: strcat(diretorio, "2.png"); break;
+		case 3: strcat(diretorio, "3.png"); break;
+	}
+	
+	imginimigo = LoadTexture(diretorio);
 	DrawTexture(imginimigo, inimigo.posx - 10, inimigo.posy - 15, WHITE);
 }
 
