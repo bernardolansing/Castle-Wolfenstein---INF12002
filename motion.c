@@ -126,6 +126,7 @@ void mover() {
     // executar para imprimir legenda
 
 	if (IsKeyPressed(KEY_E) && porta_perto(porta)) {
+		tocar_som(sounds.nextlevel);
 		draw_level_cleared();
 		game.level++;
 		level_reset();

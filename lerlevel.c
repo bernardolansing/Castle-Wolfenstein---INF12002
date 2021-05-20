@@ -56,6 +56,15 @@ void inicializador() {
 		facas[i].posx = 3000;
 		facas[i].posy = 3000;
 	}
+
+	// inicialização dos sons
+	sounds.death = LoadSound("resources/sound/death.mp3");
+    sounds.defeat = LoadSound("resources/sound/defeat.mp3");
+    sounds.yell = LoadSound("resources/sound/yell.mp3");
+    sounds.shot = LoadSound("resources/sound/shot.mp3");
+    sounds.knife = LoadSound("resources/sound/knife.mp3");
+	sounds.nextlevel = LoadSound("resources/sound/nextlevel.mp3");
+	sounds.chest = LoadSound("resources/sound/chest.mp3");
 }
 
 void level_reset() {

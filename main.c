@@ -8,9 +8,8 @@
 #include "salvarlevel.c"
 #include "menu.c"
 
-
 int main() {
-    bool pause = false;
+	bool pause = false;
 
    game.level = 0;
 
@@ -23,17 +22,13 @@ int main() {
 	//carregar_save();
 
 	InitWindow(largura, altura, "Castle Wolfenstein");
-    InitAudioDevice();
+	InitAudioDevice();
 
-    Sound death = LoadSound("resources/sound/death.mp3");
-
-    Sound defeat = LoadSound("resources/sound/defeat.mp3");
-
-    Sound yell = LoadSound("resources/sound/yell.mp3");
-
-    Sound shot = LoadSound("resources/sound/shot.mp3");
-
-    Sound knife = LoadSound("resources/sound/knife.mp3");
+	sounds.death = LoadSound("resources/sound/death.mp3");
+	sounds.defeat = LoadSound("resources/sound/defeat.mp3");
+	sounds.yell = LoadSound("resources/sound/yell.mp3");
+	sounds.shot = LoadSound("resources/sound/shot.mp3");
+	sounds.knife = LoadSound("resources/sound/knife.mp3");
 
 	SetTargetFPS(60);
 
@@ -58,11 +53,11 @@ int main() {
 
 				case -1:
 				return 0;
-        	}
-        }
-        game.executar_menu = false;
+			}
+		}
+		game.executar_menu = false;
 		
-
+		
 		// reset da legenda
 		if (GetTime() - game.horalegenda > 3) memset(game.legenda, 0, 50);
 
@@ -77,32 +72,14 @@ int main() {
 
 		// testar derrota
 		if ((player.vidas) <= 0){
-            PlaySound(defeat);
-            derrota();
+			tocar_som(sounds.defeat);
+			derrota();
 		}
 
 		// som inimigo morto
 		if(som_yell == 1){
-            PlaySound(yell);
-            som_yell = 0;
-		}
-
-        // som inimigo morto
-		if(som_death == 1){
-            PlaySound(death);
-            som_death = 0;
-		}
-
-        // som tiro
-		if(som_shot == 1){
-            PlaySound(shot);
-            som_shot = 0;
-		}
-
-        // som hit faca
-		if(som_knife == 1){
-            PlaySound(knife);
-            som_knife = 0;
+			tocar_som(sounds.yell);
+			som_yell = 0;
 		}
 
 		// salvar jogo
@@ -115,6 +92,6 @@ int main() {
 		draw();
 	}
 
-    CloseAudioDevice();
+	CloseAudioDevice();
 	CloseWindow();
 }

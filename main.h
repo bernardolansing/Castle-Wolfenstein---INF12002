@@ -70,6 +70,16 @@ struct Porta {
 	int liberada; // trancada (0) ou aberta (1).
 };
 
+struct Sounds {
+	Sound death;
+	Sound defeat;
+	Sound yell;
+	Sound shot;
+	Sound knife;
+	Sound nextlevel;
+	Sound chest;
+};
+
 
 struct Partida game;  // criação da partida
 struct Jogador player;  // criação do player
@@ -78,6 +88,8 @@ struct Porta porta;
 struct Fonte fonte;
 struct Bau baus[10];  // criação do baú
 struct Faca facas[10];
+struct Sounds sounds;
+
 int acessos = 1;
 int som_yell = 0;
 int som_death = 0;

@@ -6,6 +6,9 @@
 #include "draw.c"
 #include "lerlevel.c"
 
+void tocar_som(Sound som) {
+	PlaySound(som);
+}
 
 // verifica se o inimigo colidiu com o jogador
 bool checar_contato_inimigo(struct Inimigo inimigo) {
@@ -15,9 +18,10 @@ bool checar_contato_inimigo(struct Inimigo inimigo) {
 }
 
 void matar_jogador(int ini_index, double horamorte) {
-	//Vector2 posicao_texto = {largura / 2 - 20, altura / 2 - 10};
-	som_death++;
+
+	tocar_som(sounds.death);
 	player.vidas--;
+
 	while (GetTime() - horamorte < 3) {
 		BeginDrawing();
 
@@ -62,6 +66,8 @@ bool porta_perto(struct Porta porta)
 void loot_bau(struct Bau *bau) {
 	bau->estado = 1;
 
+	tocar_som(sounds.chest);
+
 	switch (bau->conteudo) {
 		case 'M':
 		player.municao += bau->qnt;
@@ -102,7 +108,7 @@ void loot_faca() {
 
 				player.facas++;
 				game.seletor_facas--;
-				
+
 				strcpy(game.legenda, "Voce apanhou uma faca!");
 				game.horalegenda = GetTime();
 			}
@@ -158,7 +164,7 @@ void tiro() {
 
 		player.horadisparo = GetTime();
 		player.municao--;
-		som_shot++;
+		tocar_som(sounds.shot);
 	}
 }
 
@@ -170,7 +176,6 @@ int hitfaca(struct Faca faca) {
 		if (CheckCollisionRecs(faca.hitbox, inimigos[i].hitbox) && inimigos[i].vivo) {
 			matar_inimigo(&inimigos[i]);
 			game.pontuacao += 5;
-			som_knife++;
 			return 1;
 		}
 	}
@@ -189,6 +194,8 @@ void arremesso(struct Faca *faca) {
 		faca->hitbox.x = player.posx + 5;
 		faca->hitbox.y = player.posy + 15;
 		faca->direcao = player.direcao;
+
+		tocar_som(sounds.knife);
 	}
 
 	// tendo sido arremessada, percorrerá o cenário de acordo com a direção
