@@ -75,6 +75,7 @@ struct Sounds {
 	Sound knife;
 	Sound nextlevel;
 	Sound chest;
+	Sound win;
 };
 
 

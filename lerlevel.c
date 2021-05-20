@@ -65,6 +65,7 @@ void inicializador() {
     sounds.knife = LoadSound("resources/sound/knife.mp3");
 	sounds.nextlevel = LoadSound("resources/sound/nextlevel.mp3");
 	sounds.chest = LoadSound("resources/sound/chest.mp3");
+	sounds.win = LoadSound("resources/sound/win.mp3");
 }
 
 void level_reset() {
