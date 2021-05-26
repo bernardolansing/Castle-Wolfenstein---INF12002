@@ -133,7 +133,7 @@ void mover() {
 		porta.liberada = 0;
 	}
 
-	if (game.level == 5) {
+	if (game.level == 1) {
         vitoria();
     	tocar_som(sounds.win);}
 	// --------------------------------------------------------------

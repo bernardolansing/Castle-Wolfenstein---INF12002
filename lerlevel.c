@@ -15,6 +15,7 @@ void inicializador() {
 	int i;
 
 	// inicialização de afins
+	game.level = 0;
 	game.pontuacao = 0;
 	game.legenda[0] = '\0';
 	game.seletor_facas = 0;

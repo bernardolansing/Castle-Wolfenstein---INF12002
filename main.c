@@ -26,6 +26,9 @@ int main() {
 				
 				// NOVO JOGO
 				case 0:
+					game.level = 0;
+					level_reset();
+					inicializador();
 					ler_level(game.level);
 					draw();
 					break;

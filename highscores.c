@@ -142,10 +142,9 @@ void gameover() {
 			strcpy(vplayer[5].nome, nome);
 			vplayer[5].pontuacao = game.pontuacao;
 			update_ranking();
+			game.executar_menu = true;
 			break;
 		}
-
-		game.executar_menu = true;
 	}
 }
 
